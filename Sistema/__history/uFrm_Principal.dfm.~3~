@@ -19,24 +19,12 @@ object Frm_Principal: TFrm_Principal
     Top = 112
     object Cadastros1: TMenuItem
       Caption = 'Cadastros'
-      object anques1: TMenuItem
-        Caption = 'Tanques'
-      end
-      object Bombas1: TMenuItem
-        Caption = 'Bombas'
-      end
     end
     object Movimentos1: TMenuItem
       Caption = 'Movimentos'
-      object Lanamentos1: TMenuItem
-        Caption = 'Lan'#231'amentos'
-      end
     end
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
-      object Faturamento1: TMenuItem
-        Caption = 'Faturamento'
-      end
     end
     object Sair1: TMenuItem
       Caption = 'Sair'

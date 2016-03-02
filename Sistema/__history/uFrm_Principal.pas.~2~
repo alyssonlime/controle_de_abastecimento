@@ -4,19 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus;
+  Dialogs;
 
 type
   TFrm_Principal = class(TForm)
-    MnuPrincipal: TMainMenu;
-    Cadastros1: TMenuItem;
-    Movimentos1: TMenuItem;
-    Relatrios1: TMenuItem;
-    Sair1: TMenuItem;
-    Bombas1: TMenuItem;
-    anques1: TMenuItem;
-    Lanamentos1: TMenuItem;
-    Faturamento1: TMenuItem;
   private
     { Private declarations }
   public
