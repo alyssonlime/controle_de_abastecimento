@@ -7,7 +7,7 @@ uses
   Dialogs, Menus;
 
 type
-  TFrm_Principal = class(TForm)
+  TFrm_Principal = class(T_DF)
     MnuPrincipal: TMainMenu;
     Cadastros1: TMenuItem;
     Movimentos1: TMenuItem;

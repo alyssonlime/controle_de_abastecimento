@@ -28,8 +28,6 @@ var
 
 implementation
 
-uses u_DF;
-
 {$R *.dfm}
 
 end.

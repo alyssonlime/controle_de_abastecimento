@@ -52,6 +52,9 @@
 			<DCCReference Include="uFrm_Principal.pas">
 				<Form>Frm_Principal</Form>
 			</DCCReference>
+			<DCCReference Include="u_DF.pas">
+				<Form>_DF</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

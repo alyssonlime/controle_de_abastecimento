@@ -2,9 +2,12 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2016/01/14 07:47:55.000.587,=D:\PROJETOS\Unit1.pas</Transaction>
-    <Transaction>2016/03/02 11:34:03.389,=D:\PROJETOS\Unit1.pas</Transaction>
-    <Transaction>2016/03/02 11:34:48.598,J:\TESTE\Sistema\uFrm_Principal.pas=D:\PROJETOS\Unit1.pas</Transaction>
-    <Transaction>2016/03/02 11:34:48.598,J:\TESTE\Sistema\uFrm_Principal.dfm=D:\PROJETOS\Unit1.dfm</Transaction>
-    <Transaction>2016/03/02 11:35:16.732,J:\TESTE\Sistema\Controle.dproj=D:\PROJETOS\Project1.dproj</Transaction>
+    <Transaction>2016/03/02 11:34:03.000.389,=D:\PROJETOS\Unit1.pas</Transaction>
+    <Transaction>2016/03/02 11:34:48.000.598,J:\TESTE\Sistema\uFrm_Principal.dfm=D:\PROJETOS\Unit1.dfm</Transaction>
+    <Transaction>2016/03/02 11:34:48.000.598,J:\TESTE\Sistema\uFrm_Principal.pas=D:\PROJETOS\Unit1.pas</Transaction>
+    <Transaction>2016/03/02 11:35:16.000.732,J:\TESTE\Sistema\Controle.dproj=D:\PROJETOS\Project1.dproj</Transaction>
+    <Transaction>2016/03/03 12:57:17.000.688,=J:\TESTE\Projeto\Sistema\Unit1.pas</Transaction>
+    <Transaction>2016/03/03 12:57:51.000.863,J:\TESTE\Projeto\Sistema\Unit1.pas=J:\TESTE\Projeto\Sistema\u_DF.pas</Transaction>
+    <Transaction>2016/03/03 12:57:51.000.863,J:\TESTE\Projeto\Sistema\Unit1.dfm=J:\TESTE\Projeto\Sistema\u_DF.dfm</Transaction>
   </Transactions>
 </BorlandProject>

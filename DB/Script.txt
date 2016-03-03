@@ -1,25 +1,25 @@
 Create Table Tanques(
-  Codigo Integer Not Null,
-  Descricao Varchar(10),    
-  Imposto Decimal Not Null,  
-  Constraint PK_Tanques Primary Key (Codigo)
+Codigo Integer Not Null,
+Descricao Varchar(10),
+Imposto Decimal Not Null,
+Constraint PK_Tanques Primary Key (Codigo)
 )
 Create Table Bombas(
-  Codigo Integer Not Null,
-  Descricao Varchar(10) Not Null,
-  Tanque Integer Not Null, 
-  Constraint PK_Bombas Primary Key (Codigo),      
-  Constraint PF_Bombas_Tanques Foreign Key (Tanque) References Tanques(Codigo) Using Index IX_Bombas_Tanques
+Codigo Integer Not Null,
+Descricao Varchar(10) Not Null,
+Tanque Integer Not Null,
+Constraint PK_Bombas Primary Key (Codigo),
+Constraint PF_Bombas_Tanques Foreign Key (Tanque) References Tanques(Codigo) Using Index IX_Bombas_Tanques
 )
-Create Table Abastecimentos (
-  Codigo Integer Not Null,
-  Data Date Not Null,
-  Hora Time Not Null,
-  Bomba Integer Not Null,
-  Litros Decimal Not Null,
-  Valor Decimal Not Null,
-  Imposto Decimal Not Null,
-  ValorImposto Decimal Not Null        
-  Constraint PK_Abastecimentos Primary Key (Codigo),      
-  Constraint PF_Abastecimentos_Bombas Foreign Key (Bomba) References Bombas(Codigo) Using Index IX_Abastecimentos_Bombas
-)  
+Create Table Abastecimentos(
+Codigo Integer Not Null,
+Data Date Not Null,
+Hora Time Not Null,
+Bomba Integer Not Null,
+Litros Decimal Not Null,
+Valor Decimal Not Null,
+Imposto Decimal Not Null,
+ValorImposto Decimal Not Null,
+Constraint PK_Abastecimentos Primary Key (Codigo),
+Constraint PF_Abastecimentos_Bombas Foreign Key (Bomba) References Bombas(Codigo) Using Index IX_Abastecimentos_Bombas
+)
