@@ -2,7 +2,7 @@ inherited _DFCad: T_DFCad
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cadastro'
-  ClientHeight = 345
+  ClientHeight = 337
   ClientWidth = 745
   KeyPreview = True
   Position = poOwnerFormCenter
@@ -11,15 +11,15 @@ inherited _DFCad: T_DFCad
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 751
-  ExplicitHeight = 373
+  ExplicitHeight = 365
   DesignSize = (
     745
-    345)
+    337)
   PixelsPerInch = 96
   TextHeight = 13
   object Btn_Excluir: TBitBtn
     Left = 592
-    Top = 88
+    Top = 80
     Width = 137
     Height = 57
     Anchors = [akTop, akRight]
@@ -28,7 +28,6 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 1
     OnClick = Btn_ExcluirClick
-    ExplicitLeft = 736
   end
   object Btn_Novo: TBitBtn
     Left = 592
@@ -47,7 +46,7 @@ inherited _DFCad: T_DFCad
   end
   object Btn_Salvar: TBitBtn
     Left = 592
-    Top = 152
+    Top = 144
     Width = 137
     Height = 57
     Anchors = [akTop, akRight]
@@ -56,11 +55,10 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 2
     OnClick = Btn_SalvarClick
-    ExplicitLeft = 736
   end
   object Btn_Cancelar: TBitBtn
     Left = 592
-    Top = 208
+    Top = 200
     Width = 137
     Height = 57
     Anchors = [akTop, akRight]
@@ -69,11 +67,10 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 3
     OnClick = Btn_CancelarClick
-    ExplicitLeft = 736
   end
   object Btn_Fechar: TBitBtn
     Left = 592
-    Top = 272
+    Top = 264
     Width = 137
     Height = 57
     Anchors = [akTop, akRight]
@@ -82,13 +79,12 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 4
     OnClick = Btn_FecharClick
-    ExplicitLeft = 736
   end
   object Tab_Form: TPageControl
     Left = 16
     Top = 16
     Width = 570
-    Height = 313
+    Height = 305
     ActivePage = Tab_Listagem
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 5
@@ -100,12 +96,12 @@ inherited _DFCad: T_DFCad
       ExplicitHeight = 359
       DesignSize = (
         562
-        285)
+        277)
       object DBGrid1: TDBGrid
         Left = 3
         Top = 3
         Width = 550
-        Height = 279
+        Height = 271
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataSource = DSCadastro
         Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -120,10 +116,7 @@ inherited _DFCad: T_DFCad
     object Tab_Detalhes: TTabSheet
       Caption = 'Detalhes'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitHeight = 285
       object Label1: TLabel
         Left = 3
         Top = 3
