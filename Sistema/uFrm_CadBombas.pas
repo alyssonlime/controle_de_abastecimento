@@ -19,6 +19,7 @@ type
     TCadastroDescricaoTanque: TIBStringField;
     Label3: TLabel;
     cbo_Tanque: TDBLookupComboBox;
+    procedure Btn_NovoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,5 +34,12 @@ implementation
 uses uDM;
 
 {$R *.dfm}
+
+procedure TFrm_CadBombas.Btn_NovoClick(Sender: TObject);
+begin
+  inherited;
+  txt_Descricao.Show;
+  txt_Descricao.SetFocus;
+end;
 
 end.

@@ -5,7 +5,7 @@ object DM: TDM
   Width = 569
   object Conexao: TIBDatabase
     Connected = True
-    DatabaseName = 'localhost:M:\TESTE\Projeto\DB\BANCO.FDB'
+    DatabaseName = 'localhost:j:\TESTE\Projeto\DB\BANCO.FDB'
     Params.Strings = (
       'user_name=SYSDBA'
       'password=masterkey')

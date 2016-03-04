@@ -10,11 +10,12 @@ uses
 type
   TFrm_CadTanques = class(T_DFCad)
     TCadastroDESCRICAO: TIBStringField;
-    TCadastroIMPOSTO: TIntegerField;
     Label2: TLabel;
     txt_Descricao: TDBEdit;
     Label3: TLabel;
     txt_Imposto: TDBEdit;
+    TCadastroIMPOSTO: TIBBCDField;
+    procedure Btn_NovoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,5 +28,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TFrm_CadTanques.Btn_NovoClick(Sender: TObject);
+begin
+  inherited;
+  txt_Descricao.Show;
+  txt_Descricao.SetFocus;
+end;
 
 end.

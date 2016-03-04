@@ -5,7 +5,7 @@ inherited Frm_Principal: TFrm_Principal
   Menu = MnuPrincipal
   OnActivate = FormActivate
   ExplicitWidth = 958
-  ExplicitHeight = 465
+  ExplicitHeight = 466
   PixelsPerInch = 96
   TextHeight = 13
   object MnuPrincipal: TMainMenu
@@ -26,6 +26,7 @@ inherited Frm_Principal: TFrm_Principal
       Caption = 'Movimentos'
       object Lanamentos1: TMenuItem
         Caption = 'Lan'#231'amentos'
+        OnClick = Lanamentos1Click
       end
     end
     object Relatrios1: TMenuItem

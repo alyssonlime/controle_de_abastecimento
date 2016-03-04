@@ -21,6 +21,7 @@ type
     procedure Bombas1Click(Sender: TObject);
     procedure anques1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure Lanamentos1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,7 +33,7 @@ var
 
 implementation
 
-uses uFrm_CadBombas, uFrm_CadTanques;
+uses uFrm_CadBombas, uFrm_CadTanques, uFrm_MovAbastecimentos;
 
 
 
@@ -60,8 +61,16 @@ procedure TFrm_Principal.FormActivate(Sender: TObject);
 begin
   inherited;
   if WindowState <> wsMaximized then
-      WindowState := wsMaximized;
+    WindowState := wsMaximized;
+end;
 
+procedure TFrm_Principal.Lanamentos1Click(Sender: TObject);
+begin
+  inherited;
+  Frm_MovAbastecimentos := TFrm_MovAbastecimentos.Create(Self);
+  Frm_MovAbastecimentos.ShowModal;
+  Frm_MovAbastecimentos.Free;
+  Frm_MovAbastecimentos := nil;
 end;
 
 end.

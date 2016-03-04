@@ -7,7 +7,8 @@ uses
   uDM in 'uDM.pas' {DM: TDataModule},
   u_DFCad in 'u_DFCad.pas' {_DFCad},
   uFrm_CadBombas in 'uFrm_CadBombas.pas' {Frm_CadBombas},
-  uFrm_CadTanques in 'uFrm_CadTanques.pas' {Frm_CadTanques};
+  uFrm_CadTanques in 'uFrm_CadTanques.pas' {Frm_CadTanques},
+  uFrm_MovAbastecimentos in 'uFrm_MovAbastecimentos.pas' {Frm_MovAbastecimentos};
 
 {$R *.res}
 
@@ -16,6 +17,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFrm_Principal, Frm_Principal);
-  Application.CreateForm(TFrm_CadTanques, Frm_CadTanques);
   Application.Run;
 end.

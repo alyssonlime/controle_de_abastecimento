@@ -30,7 +30,6 @@ type
     procedure Btn_ExcluirClick(Sender: TObject);
     procedure Btn_SalvarClick(Sender: TObject);
     procedure Btn_CancelarClick(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure TCadastroBeforeDelete(DataSet: TDataSet);
     procedure TCadastroBeforeInsert(DataSet: TDataSet);
     procedure Btn_FecharClick(Sender: TObject);
@@ -39,6 +38,8 @@ type
     procedure TCadastroAfterDelete(DataSet: TDataSet);
     procedure TCadastroBeforeEdit(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -65,7 +66,11 @@ end;
 procedure T_DFCad.Btn_ExcluirClick(Sender: TObject);
 begin
   inherited;
-  TCadastro.Delete;
+  try
+    TCadastro.Delete;
+  except
+    on e: Exception do DM.TratarErro(e);
+  end;
 end;
 
 procedure T_DFCad.Btn_SalvarClick(Sender: TObject);
@@ -81,17 +86,25 @@ end;
 procedure T_DFCad.HabilitarEdicao;
 begin
   inherited;
+  Btn_Novo.Enabled := False;
+  Btn_Excluir.Enabled := False;
   Btn_Salvar.Enabled := True;
   Btn_Cancelar.Enabled := True;
+  Btn_Fechar.Enabled := False;
   Tab_Detalhes.Show;
+  Tab_Detalhes.SetFocus;
 end;
 
 procedure T_DFCad.DesabilitarEdicao;
 begin
   inherited;
+  Btn_Novo.Enabled := True;
+  Btn_Excluir.Enabled := True;
   Btn_Salvar.Enabled := False;
   Btn_Cancelar.Enabled := False;
+  Btn_Fechar.Enabled := True;
   Tab_Listagem.Show;
+  Tab_Listagem.SetFocus;
 end;
 
 procedure T_DFCad.Btn_CancelarClick(Sender: TObject);
@@ -109,17 +122,24 @@ end;
 procedure T_DFCad.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   inherited;
-  {if TCadastro.State in [DSInsert, DSEdit] then
+  if TCadastro.State in [DSInsert, DSEdit] then
   begin
-    DM.MsgBox('Cadastro em edição!', MB_ICONEXCLAMATION);
-    CanClose :=  False;
-  end;  }
+    DM.MsgBox('Registro em edição !', MB_ICONEXCLAMATION);
+    CanClose := False;
+  end;
 end;
 
 procedure T_DFCad.FormCreate(Sender: TObject);
 begin
   inherited;
   TCadastro.Open;
+  Tab_Form.TabIndex := 0;
+end;
+
+procedure T_DFCad.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  Key := AnsiUpperCase(Key)[1];
 end;
 
 procedure T_DFCad.FormShow(Sender: TObject);
@@ -149,6 +169,11 @@ end;
 procedure T_DFCad.TCadastroBeforeDelete(DataSet: TDataSet);
 begin
   inherited;
+  if TCadastro.IsEmpty then
+  begin
+    DM.MsgBox('Nenhum registro para exclusão !', MB_ICONEXCLAMATION);
+    Abort;
+  end;
   if DM.MsgBox('Confirma exclusão ?', MB_YESNO+MB_ICONQUESTION) = IDNO then Abort;
 end;
 
@@ -165,6 +190,9 @@ begin
 end;
 
 procedure T_DFCad.TCadastroBeforePost(DataSet: TDataSet);
+var
+  x: Integer;
+  Field: TField;
 begin
   inherited;
   if TCadastro.State = DSInsert then
@@ -181,6 +209,16 @@ begin
         Close;
         Free;
       end;
+    end;
+  end;
+  //for x := low(TCadastro.Fields) to high(TCadastro.Fields) do
+  for Field in TCadastro.Fields do
+  begin
+    if Field.Required and Field.IsNull then
+    begin
+      DM.MsgBox('Preenchimento obrigatório: '  + Field.FieldName + ' !', MB_ICONEXCLAMATION);
+      Field.FocusControl;
+      Abort;
     end;
   end;
 end;
