@@ -4,9 +4,11 @@ inherited _DFCad: T_DFCad
   Caption = 'Cadastro'
   ClientHeight = 419
   ClientWidth = 889
+  KeyPreview = True
   Position = poOwnerFormCenter
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 895
   ExplicitHeight = 448
@@ -29,14 +31,13 @@ inherited _DFCad: T_DFCad
   end
   object Btn_Novo: TBitBtn
     Left = 736
-    Top = 25
+    Top = 24
     Width = 137
     Height = 57
     Anchors = [akTop, akRight]
     Caption = 'Novo'
     Default = True
     DoubleBuffered = True
-    ModalResult = 1
     NumGlyphs = 2
     ParentDoubleBuffered = False
     TabOrder = 0
@@ -56,7 +57,7 @@ inherited _DFCad: T_DFCad
   end
   object Btn_Cancelar: TBitBtn
     Left = 736
-    Top = 209
+    Top = 208
     Width = 137
     Height = 57
     Anchors = [akTop, akRight]

@@ -2,23 +2,23 @@ inherited _DFCad: T_DFCad
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cadastro'
-  ClientHeight = 419
-  ClientWidth = 889
+  ClientHeight = 345
+  ClientWidth = 745
   KeyPreview = True
   Position = poOwnerFormCenter
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  ExplicitWidth = 895
-  ExplicitHeight = 448
+  ExplicitWidth = 751
+  ExplicitHeight = 373
   DesignSize = (
-    889
-    419)
+    745
+    345)
   PixelsPerInch = 96
   TextHeight = 13
   object Btn_Excluir: TBitBtn
-    Left = 736
+    Left = 592
     Top = 88
     Width = 137
     Height = 57
@@ -28,9 +28,10 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 1
     OnClick = Btn_ExcluirClick
+    ExplicitLeft = 736
   end
   object Btn_Novo: TBitBtn
-    Left = 736
+    Left = 592
     Top = 24
     Width = 137
     Height = 57
@@ -42,9 +43,10 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 0
     OnClick = Btn_NovoClick
+    ExplicitLeft = 736
   end
   object Btn_Salvar: TBitBtn
-    Left = 736
+    Left = 592
     Top = 152
     Width = 137
     Height = 57
@@ -54,9 +56,10 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 2
     OnClick = Btn_SalvarClick
+    ExplicitLeft = 736
   end
   object Btn_Cancelar: TBitBtn
-    Left = 736
+    Left = 592
     Top = 208
     Width = 137
     Height = 57
@@ -66,9 +69,10 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 3
     OnClick = Btn_CancelarClick
+    ExplicitLeft = 736
   end
   object Btn_Fechar: TBitBtn
-    Left = 736
+    Left = 592
     Top = 272
     Width = 137
     Height = 57
@@ -78,25 +82,30 @@ inherited _DFCad: T_DFCad
     ParentDoubleBuffered = False
     TabOrder = 4
     OnClick = Btn_FecharClick
+    ExplicitLeft = 736
   end
   object Tab_Form: TPageControl
     Left = 16
     Top = 16
-    Width = 714
-    Height = 387
+    Width = 570
+    Height = 313
     ActivePage = Tab_Listagem
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 5
+    ExplicitWidth = 714
+    ExplicitHeight = 387
     object Tab_Listagem: TTabSheet
       Caption = 'Listagem'
+      ExplicitWidth = 706
+      ExplicitHeight = 359
       DesignSize = (
-        706
-        359)
+        562
+        285)
       object DBGrid1: TDBGrid
         Left = 3
         Top = 3
-        Width = 694
-        Height = 353
+        Width = 550
+        Height = 279
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataSource = DSCadastro
         Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -111,6 +120,10 @@ inherited _DFCad: T_DFCad
     object Tab_Detalhes: TTabSheet
       Caption = 'Detalhes'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 3
         Top = 3
