@@ -27,8 +27,8 @@
     <Transaction>2016/03/03 23:04:49.000.477,=M:\TESTE\Projeto\Sistema\Unit1.pas</Transaction>
     <Transaction>2016/03/03 23:05:20.000.894,M:\TESTE\Projeto\Sistema\Unit1.pas=M:\TESTE\Projeto\Sistema\uFrm_CadTanques.pas</Transaction>
     <Transaction>2016/03/03 23:05:20.000.894,M:\TESTE\Projeto\Sistema\Unit1.dfm=M:\TESTE\Projeto\Sistema\uFrm_CadTanques.dfm</Transaction>
-    <Transaction>2016/03/04 14:17:27.678,=J:\TESTE\Projeto\Sistema\Unit1.pas</Transaction>
-    <Transaction>2016/03/04 14:18:09.110,J:\TESTE\Projeto\Sistema\uFrm_MovAbastecimentos.dfm=J:\TESTE\Projeto\Sistema\Unit1.dfm</Transaction>
-    <Transaction>2016/03/04 14:18:09.110,J:\TESTE\Projeto\Sistema\uFrm_MovAbastecimentos.pas=J:\TESTE\Projeto\Sistema\Unit1.pas</Transaction>
+    <Transaction>2016/03/04 14:17:27.000.678,=J:\TESTE\Projeto\Sistema\Unit1.pas</Transaction>
+    <Transaction>2016/03/04 14:18:09.000.110,J:\TESTE\Projeto\Sistema\uFrm_MovAbastecimentos.dfm=J:\TESTE\Projeto\Sistema\Unit1.dfm</Transaction>
+    <Transaction>2016/03/04 14:18:09.000.110,J:\TESTE\Projeto\Sistema\uFrm_MovAbastecimentos.pas=J:\TESTE\Projeto\Sistema\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
