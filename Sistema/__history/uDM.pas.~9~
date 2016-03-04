@@ -1,0 +1,54 @@
+unit uDM;
+
+interface
+
+uses
+  SysUtils, Classes, DB, IBDatabase, Windows, Forms;
+
+type
+  TDM = class(TDataModule)
+    Conexao: TIBDatabase;
+    Transacao: TIBTransaction;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function MsgBox(Mensagem: String; Opcoes: Integer = 0): Integer;
+    procedure TratarErro(e: Exception);
+  end;
+
+Const
+  CRLF = #10#13;
+var
+  DM: TDM;
+
+implementation
+
+{$R *.dfm}
+
+procedure TDM.DataModuleCreate(Sender: TObject);
+begin
+  try
+    if not Conexao.Connected then Conexao.Connected := True;
+  except
+    on e: Exception do
+    begin
+      TratarErro(e);
+      HalT(0);
+    end;
+  end;
+end;
+
+function TDM.MsgBox(Mensagem: String; Opcoes: Integer = 0): Integer;
+begin
+  if Opcoes = 0 then Opcoes := MB_ICONINFORMATION;
+  Result := Application.MessageBox(PChar(Mensagem), PCHAR(Application.Title), Opcoes);
+end;
+
+procedure TDM.TratarErro(e: Exception);
+var
+  ArqLOG: String;
+begin
+  MsgBox('Um problema foi encontrado: ' + CRLF + e.Message, MB_ICONERROR);
+end.

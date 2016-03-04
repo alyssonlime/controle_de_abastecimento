@@ -1,17 +1,17 @@
-Create Table Tanques(
+Create Table Tanques (
 Codigo Integer Not Null,
 Descricao Varchar(10),
 Imposto Decimal Not Null,
 Constraint PK_Tanques Primary Key (Codigo)
 )
-Create Table Bombas(
+Create Table Bombas (
 Codigo Integer Not Null,
 Descricao Varchar(10) Not Null,
 Tanque Integer Not Null,
 Constraint PK_Bombas Primary Key (Codigo),
 Constraint PF_Bombas_Tanques Foreign Key (Tanque) References Tanques(Codigo) Using Index IX_Bombas_Tanques
 )
-Create Table Abastecimentos(
+Create Table Abastecimentos (
 Codigo Integer Not Null,
 Data Date Not Null,
 Hora Time Not Null,
@@ -22,4 +22,5 @@ Imposto Decimal Not Null,
 ValorImposto Decimal Not Null,
 Constraint PK_Abastecimentos Primary Key (Codigo),
 Constraint PF_Abastecimentos_Bombas Foreign Key (Bomba) References Bombas(Codigo) Using Index IX_Abastecimentos_Bombas
-)
+
+

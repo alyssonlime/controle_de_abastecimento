@@ -55,6 +55,19 @@
 			<DCCReference Include="u_DF.pas">
 				<Form>_DF</Form>
 			</DCCReference>
+			<DCCReference Include="uDM.pas">
+				<Form>DM</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="u_DFCad.pas">
+				<Form>_DFCad</Form>
+			</DCCReference>
+			<DCCReference Include="uFrm_CadBombas.pas">
+				<Form>Frm_CadBombas</Form>
+			</DCCReference>
+			<DCCReference Include="uFrm_CadTanques.pas">
+				<Form>Frm_CadTanques</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

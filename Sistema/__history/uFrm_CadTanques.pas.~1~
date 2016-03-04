@@ -1,13 +1,14 @@
-unit u_DF;
+unit uFrm_CadTanques;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, u_DFCad, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
+  ComCtrls, Buttons;
 
 type
-  T_DF = class(TForm)
+  TFrm_CadTanques = class(T_DFCad)
   private
     { Private declarations }
   public
@@ -15,11 +16,9 @@ type
   end;
 
 var
-  _DF: T_DF;
+  Frm_CadTanques: TFrm_CadTanques;
 
 implementation
-
-uses uDM;
 
 {$R *.dfm}
 

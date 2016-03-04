@@ -1,0 +1,27 @@
+unit uFrm_CadTanques;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, u_DFCad, DB, IBCustomDataSet, IBTable, StdCtrls, Mask, DBCtrls,
+  ComCtrls, Buttons;
+
+type
+  TFrm_CadTanques = class(T_DFCad)
+    TCadastroDESCRICAO: TIBStringField;
+    TCadastroIMPOSTO: TIntegerField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frm_CadTanques: TFrm_CadTanques;
+
+implementation
+
+{$R *.dfm}
+
+end.

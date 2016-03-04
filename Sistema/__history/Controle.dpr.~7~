@@ -3,7 +3,8 @@ program Controle;
 uses
   Forms,
   uFrm_Principal in 'uFrm_Principal.pas' {Frm_Principal},
-  u_DF in 'u_DF.pas' {Form1};
+  u_DF in 'u_DF.pas' {_DF},
+  uDM in 'uDM.pas' {DM: TDataModule};
 
 {$R *.res}
 
@@ -11,6 +12,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFrm_Principal, Frm_Principal);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDM, DM);
   Application.Run;
 end.

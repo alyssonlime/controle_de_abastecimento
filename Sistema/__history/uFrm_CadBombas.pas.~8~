@@ -1,0 +1,37 @@
+unit uFrm_CadBombas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, u_DFCad, DB, IBCustomDataSet, IBTable, ComCtrls, StdCtrls, Buttons,
+  Mask, DBCtrls;
+
+type
+  TFrm_CadBombas = class(T_DFCad)
+    TCadastroDESCRICAO: TIBStringField;
+    TCadastroTANQUE: TIntegerField;
+    Label2: TLabel;
+    txt_Descricao: TDBEdit;
+    TTanques: TIBTable;
+    TTanquesCODIGO: TIntegerField;
+    TTanquesDESCRICAO: TIBStringField;
+    TCadastroDescricaoTanque: TIBStringField;
+    Label3: TLabel;
+    cbo_Tanque: TDBLookupComboBox;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frm_CadBombas: TFrm_CadBombas;
+
+implementation
+
+uses uDM;
+
+{$R *.dfm}
+
+end.

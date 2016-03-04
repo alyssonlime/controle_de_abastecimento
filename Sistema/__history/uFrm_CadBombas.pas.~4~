@@ -1,13 +1,13 @@
-unit u_DF;
+unit uFrm_CadBombas;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, u_DFCad, DB, IBCustomDataSet, IBTable, ComCtrls, StdCtrls, Buttons;
 
 type
-  T_DF = class(TForm)
+  TFrm_CadBombas = class(T_DFCad)
   private
     { Private declarations }
   public
@@ -15,7 +15,7 @@ type
   end;
 
 var
-  _DF: T_DF;
+  Frm_CadBombas: TFrm_CadBombas;
 
 implementation
 

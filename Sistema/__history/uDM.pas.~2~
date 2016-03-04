@@ -1,13 +1,12 @@
-unit u_DF;
+unit uDM;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  SysUtils, Classes;
 
 type
-  T_DF = class(TForm)
+  TDM = class(TDataModule)
   private
     { Private declarations }
   public
@@ -15,11 +14,9 @@ type
   end;
 
 var
-  _DF: T_DF;
+  DM: TDM;
 
 implementation
-
-uses uDM;
 
 {$R *.dfm}
 

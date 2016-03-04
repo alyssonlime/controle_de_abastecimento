@@ -1,11 +1,17 @@
-inherited Frm_Principal: TFrm_Principal
+object Frm_Principal: TFrm_Principal
+  Left = 0
+  Top = 0
   Caption = 'Controle de Abastecimento'
   ClientHeight = 407
   ClientWidth = 942
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
   Menu = MnuPrincipal
-  OnActivate = FormActivate
-  ExplicitWidth = 958
-  ExplicitHeight = 465
+  OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
   object MnuPrincipal: TMainMenu
@@ -15,11 +21,9 @@ inherited Frm_Principal: TFrm_Principal
       Caption = 'Cadastros'
       object anques1: TMenuItem
         Caption = 'Tanques'
-        OnClick = anques1Click
       end
       object Bombas1: TMenuItem
         Caption = 'Bombas'
-        OnClick = Bombas1Click
       end
     end
     object Movimentos1: TMenuItem

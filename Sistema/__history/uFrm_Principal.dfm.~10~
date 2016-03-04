@@ -3,7 +3,6 @@ inherited Frm_Principal: TFrm_Principal
   ClientHeight = 407
   ClientWidth = 942
   Menu = MnuPrincipal
-  OnActivate = FormActivate
   ExplicitWidth = 958
   ExplicitHeight = 465
   PixelsPerInch = 96

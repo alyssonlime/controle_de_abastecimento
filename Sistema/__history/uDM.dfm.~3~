@@ -1,0 +1,9 @@
+object DM: TDM
+  OldCreateOrder = False
+  Height = 356
+  Width = 569
+  object Conexao: TIBDatabase
+    Left = 136
+    Top = 104
+  end
+end

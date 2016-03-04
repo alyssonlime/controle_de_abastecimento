@@ -1,0 +1,85 @@
+inherited Frm_CadTanques: TFrm_CadTanques
+  Caption = 'Cadastro de Tanques'
+  ClientHeight = 345
+  ClientWidth = 801
+  ExplicitWidth = 807
+  ExplicitHeight = 373
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited BitBtn2: TBitBtn
+    Left = 648
+    ExplicitLeft = 736
+  end
+  inherited BitBtn1: TBitBtn
+    Left = 648
+  end
+  inherited BitBtn3: TBitBtn
+    Left = 648
+    ExplicitLeft = 736
+  end
+  inherited BitBtn4: TBitBtn
+    Left = 648
+  end
+  inherited BitBtn5: TBitBtn
+    Left = 648
+    ExplicitLeft = 736
+  end
+  inherited Tab_Form: TPageControl
+    Width = 626
+    Height = 313
+    ActivePage = Tab_Listagem
+    ExplicitWidth = 714
+    inherited Tab_Listagem: TTabSheet
+      ExplicitWidth = 618
+      ExplicitHeight = 285
+    end
+    inherited Tab_Detalhes: TTabSheet
+      ExplicitLeft = 8
+      object Label2: TLabel [1]
+        Left = 3
+        Top = 49
+        Width = 46
+        Height = 13
+        Caption = 'Descri'#231#227'o'
+        FocusControl = txt_Descricao
+      end
+      object Label3: TLabel [2]
+        Left = 3
+        Top = 93
+        Width = 82
+        Height = 13
+        Caption = 'Perc. de Imposto'
+        FocusControl = txt_Imposto
+      end
+      object txt_Descricao: TDBEdit
+        Left = 3
+        Top = 66
+        Width = 598
+        Height = 21
+        DataField = 'DESCRICAO'
+        DataSource = DSCadastro
+        TabOrder = 1
+      end
+      object txt_Imposto: TDBEdit
+        Left = 3
+        Top = 112
+        Width = 134
+        Height = 21
+        DataField = 'IMPOSTO'
+        DataSource = DSCadastro
+        TabOrder = 2
+      end
+    end
+  end
+  inherited TCadastro: TIBTable
+    TableName = 'TANQUES'
+    object TCadastroDESCRICAO: TIBStringField [0]
+      FieldName = 'DESCRICAO'
+      Size = 10
+    end
+    object TCadastroIMPOSTO: TIntegerField [1]
+      FieldName = 'IMPOSTO'
+      Required = True
+    end
+  end
+end

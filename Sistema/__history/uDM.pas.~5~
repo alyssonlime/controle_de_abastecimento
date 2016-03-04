@@ -1,0 +1,37 @@
+unit uDM;
+
+interface
+
+uses
+  SysUtils, Classes, DB, IBDatabase, Windows, Forms;
+
+type
+  TDM = class(TDataModule)
+    Conexao: TIBDatabase;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function MsgBox(Mensagem: String; Opcoes: Integer = 0): Integer;
+  end;
+
+var
+  DM: TDM;
+
+implementation
+
+{$R *.dfm}
+
+procedure TDM.DataModuleCreate(Sender: TObject);
+begin
+  if not Conexao.Connected then Conexao.Connected := True;
+end;
+
+function TDM.MsgBox(Mensagem: String; Opcoes: Integer = 0): Integer;
+begin
+  if Opcoes = 0 then Opcoes := MB_ICONINFORMATION;
+  Result := Application.MessageBox(PChar(Mensagem), PCHAR(Application.Title), Opcoes);
+end;
+
+end.
