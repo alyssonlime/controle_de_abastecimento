@@ -14,6 +14,7 @@ object DM: TDM
     Top = 104
   end
   object Transacao: TIBTransaction
+    Active = True
     DefaultDatabase = Conexao
     Left = 280
     Top = 136

@@ -3,7 +3,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
   ClientHeight = 345
   ClientWidth = 753
   ExplicitWidth = 759
-  ExplicitHeight = 374
+  ExplicitHeight = 373
   PixelsPerInch = 96
   TextHeight = 13
   inherited Btn_Excluir: TBitBtn
@@ -29,7 +29,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
   inherited Tab_Form: TPageControl
     Width = 578
     Height = 313
-    ActivePage = Tab_Detalhes
+    ActivePage = Tab_Listagem
     ExplicitWidth = 578
     ExplicitHeight = 313
     inherited Tab_Listagem: TTabSheet
@@ -43,25 +43,28 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
             Expanded = False
             FieldName = 'Codigo'
             Title.Caption = 'C'#243'digo'
+            Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA'
             Title.Caption = 'Data'
+            Width = 72
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'HORA'
             Title.Caption = 'Hora'
+            Width = 49
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'BOMBA'
+            FieldName = 'DescricaoBomba'
             Title.Caption = 'Bomba'
-            Width = 132
+            Width = 146
             Visible = True
           end
           item
@@ -86,7 +89,6 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
     end
     inherited Tab_Detalhes: TTabSheet
       ExplicitWidth = 570
-      ExplicitHeight = 285
       object Label2: TLabel [1]
         Left = 3
         Top = 49
@@ -341,6 +343,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
     Transaction = DM.Transacao
     BeforeDelete = TCadastroBeforeDelete
     BeforePost = TCadastroBeforePost
+    Active = True
     FieldDefs = <
       item
         Name = 'CODIGO'

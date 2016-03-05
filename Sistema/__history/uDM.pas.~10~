@@ -50,8 +50,7 @@ procedure TDM.TratarErro(e: Exception);
 var
   ArqLOG: String;
 begin
-  if e.ClassType <> EAbort then
-    MsgBox('Um problema foi encontrado: ' + CRLF + e.Message, MB_ICONERROR);
+  MsgBox('Um problema foi encontrado: ' + CRLF + e.Message, MB_ICONERROR);
 end;
 
 end.

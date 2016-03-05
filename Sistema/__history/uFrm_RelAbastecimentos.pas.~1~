@@ -1,0 +1,25 @@
+unit uFrm_RelAbastecimentos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, u_DF, StdCtrls, Buttons;
+
+type
+  T_DF1 = class(T_DF)
+    Btn_Fechar: TBitBtn;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  _DF1: T_DF1;
+
+implementation
+
+{$R *.dfm}
+
+end.

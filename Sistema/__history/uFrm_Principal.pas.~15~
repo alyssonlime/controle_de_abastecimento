@@ -13,6 +13,7 @@ type
     Cadastros1: TMenuItem;
     Movimentos1: TMenuItem;
     Relatrios1: TMenuItem;
+    Sair1: TMenuItem;
     Bombas1: TMenuItem;
     anques1: TMenuItem;
     Lanamentos1: TMenuItem;

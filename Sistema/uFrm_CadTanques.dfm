@@ -3,7 +3,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
   ClientHeight = 345
   ClientWidth = 801
   ExplicitWidth = 807
-  ExplicitHeight = 374
+  ExplicitHeight = 373
   PixelsPerInch = 96
   TextHeight = 13
   inherited Btn_Excluir: TBitBtn
@@ -29,7 +29,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
   inherited Tab_Form: TPageControl
     Width = 626
     Height = 313
-    ActivePage = Tab_Detalhes
+    ActivePage = Tab_Listagem
     ExplicitWidth = 626
     ExplicitHeight = 313
     inherited Tab_Listagem: TTabSheet
@@ -44,14 +44,14 @@ inherited Frm_CadTanques: TFrm_CadTanques
             Expanded = False
             FieldName = 'Codigo'
             Title.Caption = 'C'#243'digo'
-            Width = 63
+            Width = 57
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO'
             Title.Caption = 'Descri'#231#227'o'
-            Width = 414
+            Width = 421
             Visible = True
           end
           item
@@ -65,7 +65,6 @@ inherited Frm_CadTanques: TFrm_CadTanques
     end
     inherited Tab_Detalhes: TTabSheet
       ExplicitWidth = 618
-      ExplicitHeight = 285
       object Label2: TLabel [1]
         Left = 3
         Top = 49

@@ -1,22 +1,23 @@
 inherited Frm_CadBombas: TFrm_CadBombas
   Caption = 'Cadastro de Bombas'
-  ClientHeight = 337
+  ClientHeight = 329
   ClientWidth = 761
   ExplicitWidth = 767
-  ExplicitHeight = 366
+  ExplicitHeight = 357
   PixelsPerInch = 96
   TextHeight = 13
   inherited Tab_Form: TPageControl [0]
     Width = 586
-    Height = 305
+    Height = 297
+    ActivePage = Tab_Listagem
     ExplicitWidth = 586
-    ExplicitHeight = 313
+    ExplicitHeight = 305
     inherited Tab_Listagem: TTabSheet
       ExplicitWidth = 578
-      ExplicitHeight = 285
+      ExplicitHeight = 277
       inherited DBGrid1: TDBGrid
         Width = 572
-        Height = 271
+        Height = 263
         Columns = <
           item
             Expanded = False
@@ -83,35 +84,35 @@ inherited Frm_CadBombas: TFrm_CadBombas
       end
     end
   end
-  inherited Btn_Novo: TBitBtn
+  inherited Btn_Fechar: TBitBtn [1]
+    Left = 608
+    Top = 256
+    ExplicitLeft = 608
+    ExplicitTop = 256
+  end
+  inherited Btn_Novo: TBitBtn [2]
     Left = 608
     Top = 16
     ExplicitLeft = 608
     ExplicitTop = 16
   end
-  inherited Btn_Fechar: TBitBtn [2]
+  inherited Btn_Salvar: TBitBtn [3]
     Left = 608
-    Top = 264
+    Top = 136
     ExplicitLeft = 608
-    ExplicitTop = 264
+    ExplicitTop = 136
   end
-  inherited Btn_Cancelar: TBitBtn
+  inherited Btn_Cancelar: TBitBtn [4]
     Left = 608
-    Top = 200
+    Top = 192
     ExplicitLeft = 608
-    ExplicitTop = 200
-  end
-  inherited Btn_Salvar: TBitBtn [4]
-    Left = 608
-    Top = 144
-    ExplicitLeft = 608
-    ExplicitTop = 144
+    ExplicitTop = 192
   end
   inherited Btn_Excluir: TBitBtn [5]
     Left = 608
-    Top = 80
+    Top = 72
     ExplicitLeft = 608
-    ExplicitTop = 80
+    ExplicitTop = 72
   end
   inherited TCadastro: TIBTable
     TableName = 'BOMBAS'

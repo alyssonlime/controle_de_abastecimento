@@ -3,7 +3,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
   ClientHeight = 345
   ClientWidth = 801
   ExplicitWidth = 807
-  ExplicitHeight = 373
+  ExplicitHeight = 374
   PixelsPerInch = 96
   TextHeight = 13
   inherited Btn_Excluir: TBitBtn
@@ -29,6 +29,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
   inherited Tab_Form: TPageControl
     Width = 626
     Height = 313
+    ActivePage = Tab_Detalhes
     ExplicitWidth = 626
     ExplicitHeight = 313
     inherited Tab_Listagem: TTabSheet
@@ -50,7 +51,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
             Expanded = False
             FieldName = 'DESCRICAO'
             Title.Caption = 'Descri'#231#227'o'
-            Width = 424
+            Width = 414
             Visible = True
           end
           item
@@ -102,14 +103,43 @@ inherited Frm_CadTanques: TFrm_CadTanques
     end
   end
   inherited TCadastro: TIBTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'CODIGO'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'DESCRICAO'
+        DataType = ftWideString
+        Size = 50
+      end
+      item
+        Name = 'IMPOSTO'
+        Attributes = [faRequired]
+        DataType = ftBCD
+        Precision = 9
+        Size = 2
+      end>
+    IndexDefs = <
+      item
+        Name = 'PK_TANQUES'
+        Fields = 'CODIGO'
+        Options = [ixUnique]
+      end>
+    StoreDefs = True
     TableName = 'TANQUES'
     object TCadastroDESCRICAO: TIBStringField [0]
       FieldName = 'DESCRICAO'
-      Size = 10
+      Size = 50
     end
-    object TCadastroIMPOSTO: TIntegerField [1]
+    object TCadastroIMPOSTO: TIBBCDField
       FieldName = 'IMPOSTO'
       Required = True
+      DisplayFormat = '#,##0.00'
+      Precision = 9
+      Size = 2
     end
   end
   inherited DSCadastro: TDataSource

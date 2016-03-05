@@ -8,7 +8,8 @@ uses
   u_DFCad in 'u_DFCad.pas' {_DFCad},
   uFrm_CadBombas in 'uFrm_CadBombas.pas' {Frm_CadBombas},
   uFrm_CadTanques in 'uFrm_CadTanques.pas' {Frm_CadTanques},
-  uFrm_MovAbastecimentos in 'uFrm_MovAbastecimentos.pas' {Frm_MovAbastecimentos};
+  uFrm_MovAbastecimentos in 'uFrm_MovAbastecimentos.pas' {Frm_MovAbastecimentos},
+  uFrm_RelAbastecimentos in 'uFrm_RelAbastecimentos.pas' {Frm_RelAbastecimentos};
 
 {$R *.res}
 
@@ -17,5 +18,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFrm_Principal, Frm_Principal);
+  Application.CreateForm(TFrm_RelAbastecimentos, Frm_RelAbastecimentos);
   Application.Run;
 end.
