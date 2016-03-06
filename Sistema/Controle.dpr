@@ -9,7 +9,9 @@ uses
   uFrm_CadBombas in 'uFrm_CadBombas.pas' {Frm_CadBombas},
   uFrm_CadTanques in 'uFrm_CadTanques.pas' {Frm_CadTanques},
   uFrm_MovAbastecimentos in 'uFrm_MovAbastecimentos.pas' {Frm_MovAbastecimentos},
-  uFrm_RelAbastecimentos in 'uFrm_RelAbastecimentos.pas' {Frm_RelAbastecimentos};
+  uFrm_RelAbastecimentos in 'uFrm_RelAbastecimentos.pas' {Frm_RelAbastecimentos},
+  RLReport in '..\Source\RLReport.pas',
+  uFrm_RelAbastecimentos_RL in 'uFrm_RelAbastecimentos_RL.pas' {Frm_RelAbastecimentos_RL};
 
 {$R *.res}
 
@@ -19,5 +21,6 @@ begin
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFrm_Principal, Frm_Principal);
   Application.CreateForm(TFrm_RelAbastecimentos, Frm_RelAbastecimentos);
+  Application.CreateForm(TFrm_RelAbastecimentos_RL, Frm_RelAbastecimentos_RL);
   Application.Run;
 end.

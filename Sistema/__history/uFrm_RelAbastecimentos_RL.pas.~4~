@@ -1,0 +1,32 @@
+unit uFrm_RelAbastecimentos_RL;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, RLReport, DB, IBCustomDataSet, IBQuery;
+
+type
+  TFrm_RelAbastecimentos_RL = class(TForm)
+    RLReport: TRLReport;
+    RLBand1: TRLBand;
+    RLBand2: TRLBand;
+    RLBand3: TRLBand;
+    RLBand4: TRLBand;
+    QRelatorio: TIBQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL;
+
+implementation
+
+uses uDM;
+
+{$R *.dfm}
+
+end.

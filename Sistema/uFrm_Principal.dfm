@@ -33,6 +33,7 @@ inherited Frm_Principal: TFrm_Principal
       Caption = 'Relat'#243'rios'
       object Faturamento1: TMenuItem
         Caption = 'Faturamento'
+        OnClick = Faturamento1Click
       end
     end
   end

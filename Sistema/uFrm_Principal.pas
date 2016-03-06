@@ -21,6 +21,7 @@ type
     procedure anques1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure Lanamentos1Click(Sender: TObject);
+    procedure Faturamento1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,7 +33,8 @@ var
 
 implementation
 
-uses uFrm_CadBombas, uFrm_CadTanques, uFrm_MovAbastecimentos;
+uses uFrm_CadBombas, uFrm_CadTanques, uFrm_MovAbastecimentos,
+  uFrm_RelAbastecimentos;
 
 
 
@@ -54,6 +56,15 @@ begin
   Frm_CadBombas.ShowModal;
   Frm_CadBombas.Free;
   Frm_CadBombas := nil;
+end;
+
+procedure TFrm_Principal.Faturamento1Click(Sender: TObject);
+begin
+  inherited;
+  Frm_RelAbastecimentos := TFrm_RelAbastecimentos.Create(Self);
+  Frm_RelAbastecimentos.ShowModal;
+  Frm_RelAbastecimentos.Free;
+  Frm_RelAbastecimentos := nil;
 end;
 
 procedure TFrm_Principal.FormActivate(Sender: TObject);
