@@ -76,9 +76,11 @@
 			<DCCReference Include="uFrm_RelAbastecimentos.pas">
 				<Form>Frm_RelAbastecimentos</Form>
 			</DCCReference>
-			<DCCReference Include="..\Source\RLReport.pas"/>
 			<DCCReference Include="uFrm_RelAbastecimentos_RL.pas">
 				<Form>Frm_RelAbastecimentos_RL</Form>
+			</DCCReference>
+			<DCCReference Include="uFrm_SisSobre.pas">
+				<Form>Frm_SisSobre</Form>
 			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>

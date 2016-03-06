@@ -16,6 +16,10 @@ type
     txt_Imposto: TDBEdit;
     TCadastroIMPOSTO: TIBBCDField;
     procedure Btn_NovoClick(Sender: TObject);
+    procedure txt_DescricaoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure txt_ImpostoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -27,6 +31,8 @@ var
 
 implementation
 
+uses uDM;
+
 {$R *.dfm}
 
 procedure TFrm_CadTanques.Btn_NovoClick(Sender: TObject);
@@ -34,6 +40,21 @@ begin
   inherited;
   txt_Descricao.Show;
   txt_Descricao.SetFocus;
+end;
+
+procedure TFrm_CadTanques.txt_DescricaoKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then txt_Imposto.SetFocus;
+end;
+
+procedure TFrm_CadTanques.txt_ImpostoKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then
+    if Btn_Salvar.Enabled then Btn_Salvar.SetFocus else SetFocusDefault;
 end;
 
 end.

@@ -38,6 +38,12 @@ type
     procedure DSCadastroDataChange(Sender: TObject; Field: TField);
     procedure Btn_NovoClick(Sender: TObject);
     procedure TCadastroAfterInsert(DataSet: TDataSet);
+    procedure txt_LitrosKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure txt_ValorKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cbo_BombaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -58,6 +64,13 @@ begin
   inherited;
   cbo_Bomba.Show;
   cbo_Bomba.SetFocus;
+end;
+
+procedure TFrm_MovAbastecimentos.cbo_BombaKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then txt_Litros.SetFocus;
 end;
 
 procedure TFrm_MovAbastecimentos.DSCadastroDataChange(Sender: TObject;
@@ -95,6 +108,21 @@ begin
   inherited;
   TCadastroDATA.Value := Date;
   TCadastroHORA.Value := Time;
+end;
+
+procedure TFrm_MovAbastecimentos.txt_LitrosKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then txt_Valor.SetFocus;
+end;
+
+procedure TFrm_MovAbastecimentos.txt_ValorKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then
+    if Btn_Salvar.Enabled then Btn_Salvar.SetFocus else SetFocusDefault;
 end;
 
 end.

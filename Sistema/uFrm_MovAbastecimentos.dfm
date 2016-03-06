@@ -1,9 +1,7 @@
 inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
   Caption = 'Abastecimentos'
-  ClientHeight = 345
   ClientWidth = 753
   ExplicitWidth = 759
-  ExplicitHeight = 373
   PixelsPerInch = 96
   TextHeight = 13
   inherited Btn_Excluir: TBitBtn
@@ -28,16 +26,14 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
   end
   inherited Tab_Form: TPageControl
     Width = 578
-    Height = 313
-    ActivePage = Tab_Listagem
+    ActivePage = Tab_Detalhes
     ExplicitWidth = 578
     ExplicitHeight = 313
     inherited Tab_Listagem: TTabSheet
       ExplicitWidth = 570
       ExplicitHeight = 285
-      inherited DBGrid1: TDBGrid
+      inherited grid_Listagem: TDBGrid
         Width = 558
-        Height = 279
         Columns = <
           item
             Expanded = False
@@ -89,6 +85,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
     end
     inherited Tab_Detalhes: TTabSheet
       ExplicitWidth = 570
+      ExplicitHeight = 285
       object Label2: TLabel [1]
         Left = 3
         Top = 49
@@ -175,6 +172,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
         DataField = 'LITROS'
         DataSource = DSCadastro
         TabOrder = 3
+        OnKeyDown = txt_LitrosKeyDown
       end
       object txt_Valor: TDBEdit
         Left = 143
@@ -184,6 +182,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
         DataField = 'VALOR'
         DataSource = DSCadastro
         TabOrder = 4
+        OnKeyDown = txt_ValorKeyDown
       end
       object txt_Imposto: TDBEdit
         Left = 283
@@ -208,6 +207,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
         TabOrder = 6
       end
       object cbo_Bomba: TDBLookupComboBox
+        Tag = 1
         Left = 283
         Top = 68
         Width = 274
@@ -215,6 +215,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
         DataField = 'DescricaoBomba'
         DataSource = DSCadastro
         TabOrder = 7
+        OnKeyDown = cbo_BombaKeyDown
       end
     end
   end

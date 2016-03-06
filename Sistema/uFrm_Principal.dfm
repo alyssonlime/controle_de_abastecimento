@@ -2,8 +2,10 @@ inherited Frm_Principal: TFrm_Principal
   Caption = 'Controle de Abastecimento'
   ClientHeight = 407
   ClientWidth = 942
+  FormStyle = fsMDIForm
   Menu = MnuPrincipal
   OnActivate = FormActivate
+  OnCloseQuery = FormCloseQuery
   ExplicitWidth = 958
   ExplicitHeight = 465
   PixelsPerInch = 96
@@ -11,29 +13,36 @@ inherited Frm_Principal: TFrm_Principal
   object MnuPrincipal: TMainMenu
     Left = 544
     Top = 112
-    object Cadastros1: TMenuItem
+    object mnuCadastros: TMenuItem
       Caption = 'Cadastros'
-      object anques1: TMenuItem
+      object mnu_CadTanques: TMenuItem
         Caption = 'Tanques'
-        OnClick = anques1Click
+        OnClick = mnu_CadTanquesClick
       end
-      object Bombas1: TMenuItem
+      object mnu_CadBombas: TMenuItem
         Caption = 'Bombas'
-        OnClick = Bombas1Click
+        OnClick = mnu_CadBombasClick
       end
     end
-    object Movimentos1: TMenuItem
+    object mnu_Movimentos: TMenuItem
       Caption = 'Movimentos'
-      object Lanamentos1: TMenuItem
-        Caption = 'Lan'#231'amentos'
-        OnClick = Lanamentos1Click
+      object mnu_MovAbastecimentos: TMenuItem
+        Caption = 'Abastecimentos'
+        OnClick = mnu_MovAbastecimentosClick
       end
     end
-    object Relatrios1: TMenuItem
+    object mnu_Relatorios: TMenuItem
       Caption = 'Relat'#243'rios'
-      object Faturamento1: TMenuItem
-        Caption = 'Faturamento'
-        OnClick = Faturamento1Click
+      object mnu_RelAbastecimentos: TMenuItem
+        Caption = 'Abastecimentos'
+        OnClick = mnu_RelAbastecimentosClick
+      end
+    end
+    object mnu_Ajuda: TMenuItem
+      Caption = 'Ajuda'
+      object mnu_SisSobre: TMenuItem
+        Caption = 'Sorbe'
+        OnClick = mnu_SisSobreClick
       end
     end
   end

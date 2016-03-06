@@ -20,6 +20,10 @@ type
     Label3: TLabel;
     cbo_Tanque: TDBLookupComboBox;
     procedure Btn_NovoClick(Sender: TObject);
+    procedure txt_DescricaoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cbo_TanqueKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -40,6 +44,21 @@ begin
   inherited;
   txt_Descricao.Show;
   txt_Descricao.SetFocus;
+end;
+
+procedure TFrm_CadBombas.cbo_TanqueKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then
+    if Btn_Salvar.Enabled then Btn_Salvar.SetFocus else SetFocusDefault;
+end;
+
+procedure TFrm_CadBombas.txt_DescricaoKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then cbo_Tanque.SetFocus;
 end;
 
 end.

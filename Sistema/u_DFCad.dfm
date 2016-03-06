@@ -6,6 +6,7 @@ inherited _DFCad: T_DFCad
   ClientWidth = 745
   KeyPreview = True
   Position = poOwnerFormCenter
+  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -36,13 +37,11 @@ inherited _DFCad: T_DFCad
     Height = 57
     Anchors = [akTop, akRight]
     Caption = 'Novo'
-    Default = True
     DoubleBuffered = True
     NumGlyphs = 2
     ParentDoubleBuffered = False
     TabOrder = 0
     OnClick = Btn_NovoClick
-    ExplicitLeft = 736
   end
   object Btn_Salvar: TBitBtn
     Left = 592
@@ -85,20 +84,16 @@ inherited _DFCad: T_DFCad
     Top = 16
     Width = 570
     Height = 305
-    ActivePage = Tab_Detalhes
+    ActivePage = Tab_Listagem
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 5
-    ExplicitWidth = 714
-    ExplicitHeight = 387
     object Tab_Listagem: TTabSheet
       Caption = 'Listagem'
-      ExplicitWidth = 706
-      ExplicitHeight = 359
       DesignSize = (
         562
         277)
-      object DBGrid1: TDBGrid
-        Left = 3
+      object grid_Listagem: TDBGrid
+        Left = 9
         Top = 3
         Width = 550
         Height = 271
@@ -111,12 +106,12 @@ inherited _DFCad: T_DFCad
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDblClick = grid_ListagemDblClick
       end
     end
     object Tab_Detalhes: TTabSheet
       Caption = 'Detalhes'
       ImageIndex = 1
-      ExplicitHeight = 285
       object Label1: TLabel
         Left = 3
         Top = 3
@@ -148,6 +143,7 @@ inherited _DFCad: T_DFCad
     BeforeEdit = TCadastroBeforeEdit
     BeforeInsert = TCadastroBeforeInsert
     BeforePost = TCadastroBeforePost
+    OnDeleteError = TCadastroDeleteError
     Left = 160
     object TCadastroCodigo: TIntegerField
       FieldName = 'Codigo'

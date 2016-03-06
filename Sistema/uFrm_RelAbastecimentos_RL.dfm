@@ -29,19 +29,32 @@ object Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL
       Left = 38
       Top = 38
       Width = 718
-      Height = 35
+      Height = 48
       BandType = btHeader
       object RLLabel1: TRLLabel
         Left = 3
         Top = 3
-        Width = 222
+        Width = 224
         Height = 16
         Caption = 'RELAT'#211'RIO DE ABASTECIMENTOS'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lbl_Filtros: TRLLabel
+        Left = 3
+        Top = 25
+        Width = 40
+        Height = 16
+        Caption = 'Filtros'
       end
     end
     object RLBand2: TRLBand
       Left = 38
-      Top = 73
+      Top = 86
       Width = 718
       Height = 48
       BandType = btColumnHeader
@@ -92,7 +105,7 @@ object Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL
     end
     object RLBand3: TRLBand
       Left = 38
-      Top = 121
+      Top = 134
       Width = 718
       Height = 32
       object RLDBText1: TRLDBText
@@ -135,7 +148,7 @@ object Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL
     end
     object RLBand4: TRLBand
       Left = 38
-      Top = 153
+      Top = 166
       Width = 718
       Height = 40
       BandType = btSummary
@@ -166,7 +179,6 @@ object Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL
   object QRelatorio: TIBQuery
     Database = DM.Conexao
     Transaction = DM.Transacao
-    Active = True
     SQL.Strings = (
       
         'Select A.Data, T.Descricao Tanque, B.Descricao Bomba, SUM(A.Valo' +
@@ -174,8 +186,20 @@ object Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL
       'From Abastecimentos A'
       'Inner Join Bombas B On A.Bomba = B.Codigo '
       'Inner Join Tanques T On B.Tanque = T.Codigo'
+      'Where A.Data Between :DI And :DF'
       'Group By A.Data, T.Descricao, B.Descricao ')
     Left = 368
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'DI'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DF'
+        ParamType = ptUnknown
+      end>
     object QRelatorioDATA: TDateField
       FieldName = 'DATA'
       Origin = '"ABASTECIMENTOS"."DATA"'

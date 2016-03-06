@@ -10,17 +10,17 @@ uses
   uFrm_CadTanques in 'uFrm_CadTanques.pas' {Frm_CadTanques},
   uFrm_MovAbastecimentos in 'uFrm_MovAbastecimentos.pas' {Frm_MovAbastecimentos},
   uFrm_RelAbastecimentos in 'uFrm_RelAbastecimentos.pas' {Frm_RelAbastecimentos},
-  RLReport in '..\Source\RLReport.pas',
-  uFrm_RelAbastecimentos_RL in 'uFrm_RelAbastecimentos_RL.pas' {Frm_RelAbastecimentos_RL};
+  uFrm_RelAbastecimentos_RL in 'uFrm_RelAbastecimentos_RL.pas' {Frm_RelAbastecimentos_RL},
+  uFrm_SisSobre in 'uFrm_SisSobre.pas' {Frm_SisSobre};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.Title := 'Controle de Abastecimentos';
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFrm_Principal, Frm_Principal);
-  Application.CreateForm(TFrm_RelAbastecimentos, Frm_RelAbastecimentos);
-  Application.CreateForm(TFrm_RelAbastecimentos_RL, Frm_RelAbastecimentos_RL);
+  Application.CreateForm(TFrm_SisSobre, Frm_SisSobre);
   Application.Run;
 end.

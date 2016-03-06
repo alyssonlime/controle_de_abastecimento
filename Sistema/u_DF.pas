@@ -8,6 +8,7 @@ uses
 
 type
   T_DF = class(TForm)
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -22,5 +23,14 @@ implementation
 uses uDM;
 
 {$R *.dfm}
+
+procedure T_DF.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if FormStyle = fsMDIChild then
+  begin
+    Action := caFree;
+    _DF := nil;
+  end;
+end;
 
 end.

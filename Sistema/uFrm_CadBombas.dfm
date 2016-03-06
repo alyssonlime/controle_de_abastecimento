@@ -9,13 +9,12 @@ inherited Frm_CadBombas: TFrm_CadBombas
   inherited Tab_Form: TPageControl [0]
     Width = 586
     Height = 297
-    ActivePage = Tab_Listagem
     ExplicitWidth = 586
-    ExplicitHeight = 305
+    ExplicitHeight = 297
     inherited Tab_Listagem: TTabSheet
       ExplicitWidth = 578
-      ExplicitHeight = 277
-      inherited DBGrid1: TDBGrid
+      ExplicitHeight = 269
+      inherited grid_Listagem: TDBGrid
         Width = 572
         Height = 263
         Columns = <
@@ -43,8 +42,9 @@ inherited Frm_CadBombas: TFrm_CadBombas
       end
     end
     inherited Tab_Detalhes: TTabSheet
+      ExplicitLeft = 8
       ExplicitWidth = 578
-      ExplicitHeight = 277
+      ExplicitHeight = 269
       object Label2: TLabel [0]
         Left = 3
         Top = 49
@@ -62,6 +62,7 @@ inherited Frm_CadBombas: TFrm_CadBombas
         FocusControl = cbo_Tanque
       end
       object txt_Descricao: TDBEdit [3]
+        Tag = 1
         Left = 3
         Top = 68
         Width = 558
@@ -69,6 +70,7 @@ inherited Frm_CadBombas: TFrm_CadBombas
         DataField = 'DESCRICAO'
         DataSource = DSCadastro
         TabOrder = 0
+        OnKeyDown = txt_DescricaoKeyDown
       end
       object cbo_Tanque: TDBLookupComboBox [4]
         Left = 3
@@ -78,6 +80,7 @@ inherited Frm_CadBombas: TFrm_CadBombas
         DataField = 'DescricaoTanque'
         DataSource = DSCadastro
         TabOrder = 1
+        OnKeyDown = cbo_TanqueKeyDown
       end
       inherited txt_Codigo: TDBEdit
         TabOrder = 2

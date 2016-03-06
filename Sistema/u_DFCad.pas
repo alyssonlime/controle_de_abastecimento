@@ -22,7 +22,7 @@ type
     DSCadastro: TDataSource;
     txt_Codigo: TDBEdit;
     Label1: TLabel;
-    DBGrid1: TDBGrid;
+    grid_Listagem: TDBGrid;
     TCadastroCodigo: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure TCadastroBeforePost(DataSet: TDataSet);
@@ -40,12 +40,16 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure grid_ListagemDblClick(Sender: TObject);
+    procedure TCadastroDeleteError(DataSet: TDataSet; E: EDatabaseError;
+      var Action: TDataAction);
   private
     { Private declarations }
   public
     { Public declarations }
     procedure HabilitarEdicao;
     procedure DesabilitarEdicao;
+    procedure SetFocusDefault(Controle: TWinControl = nil);
   end;
 
 var
@@ -91,8 +95,38 @@ begin
   Btn_Salvar.Enabled := True;
   Btn_Cancelar.Enabled := True;
   Btn_Fechar.Enabled := False;
-  Tab_Detalhes.Show;
-  Tab_Detalhes.SetFocus;
+  if Tab_Form.TabIndex <> Tab_Detalhes.TabIndex then
+  begin
+    Tab_Detalhes.Show;
+    Tab_Detalhes.SetFocus;
+    SetFocusDefault;
+  end;
+end;
+
+procedure T_DFCad.grid_ListagemDblClick(Sender: TObject);
+begin
+  inherited;
+  SetFocusDefault;
+end;
+
+procedure T_DFCad.SetFocusDefault(Controle: TWinControl = nil);
+var
+  x: Integer;
+begin
+  inherited;
+  if Controle = nil then Controle := Self;
+  for x := 0 to Controle.ControlCount - 1 do
+  begin
+    if Controle.Controls[x].InheritsFrom(TWinControl) then
+    begin
+      if Controle.Controls[x].Tag = 1 then
+      begin
+        TWinControl(Controle.Controls[x]).Show;
+        TWinControl(Controle.Controls[x]).SetFocus;
+      end;
+      SetFocusDefault(TWinControl(Controle.Controls[x]));
+    end;
+  end;
 end;
 
 procedure T_DFCad.DesabilitarEdicao;
@@ -105,6 +139,7 @@ begin
   Btn_Fechar.Enabled := True;
   Tab_Listagem.Show;
   Tab_Listagem.SetFocus;
+  Btn_Novo.SetFocus;
 end;
 
 procedure T_DFCad.Btn_CancelarClick(Sender: TObject);
@@ -214,13 +249,21 @@ begin
   //for x := low(TCadastro.Fields) to high(TCadastro.Fields) do
   for Field in TCadastro.Fields do
   begin
-    if Field.Required and Field.IsNull then
+    if Field.Required and (Field.IsNull or (Field.AsString = '') or (Field.AsString = '0')) then
     begin
-      DM.MsgBox('Preenchimento obrigatório: '  + Field.FieldName + ' !', MB_ICONEXCLAMATION);
-      Field.FocusControl;
-      Abort;
+        DM.MsgBox('Preenchimento obrigatório: '  + Field.FieldName + ' !', MB_ICONEXCLAMATION);
+        Field.FocusControl;
+        Abort;
     end;
   end;
+end;
+
+procedure T_DFCad.TCadastroDeleteError(DataSet: TDataSet; E: EDatabaseError;
+  var Action: TDataAction);
+begin
+  inherited;
+  if Copy(E.Message, 1, 12)  = 'violation of' then
+    E.Message := 'O registro selecionado não poderá ser excluído!';
 end;
 
 end.

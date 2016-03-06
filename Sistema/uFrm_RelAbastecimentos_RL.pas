@@ -35,6 +35,7 @@ type
     RLDBResult1: TRLDBResult;
     RLDraw3: TRLDraw;
     RLLabel6: TRLLabel;
+    lbl_Filtros: TRLLabel;
   private
     { Private declarations }
   public
