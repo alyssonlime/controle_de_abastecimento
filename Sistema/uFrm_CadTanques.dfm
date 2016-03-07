@@ -1,5 +1,5 @@
 inherited Frm_CadTanques: TFrm_CadTanques
-  Caption = 'Cadastro de Tanques'
+  Caption = 'Cadastro de Tanques de Combust'#237'vel'
   ClientWidth = 801
   ExplicitWidth = 807
   PixelsPerInch = 96
@@ -28,10 +28,11 @@ inherited Frm_CadTanques: TFrm_CadTanques
     Width = 626
     ActivePage = Tab_Detalhes
     ExplicitWidth = 626
-    ExplicitHeight = 313
     inherited Tab_Listagem: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 618
-      ExplicitHeight = 285
+      ExplicitHeight = 0
       inherited grid_Listagem: TDBGrid
         Top = 0
         Width = 612
@@ -61,8 +62,10 @@ inherited Frm_CadTanques: TFrm_CadTanques
       end
     end
     inherited Tab_Detalhes: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 618
-      ExplicitHeight = 285
+      ExplicitHeight = 277
       object Label2: TLabel [1]
         Left = 3
         Top = 49
@@ -74,9 +77,9 @@ inherited Frm_CadTanques: TFrm_CadTanques
       object Label3: TLabel [2]
         Left = 3
         Top = 93
-        Width = 82
+        Width = 142
         Height = 13
-        Caption = 'Perc. de Imposto'
+        Caption = '% de Imposto do combust'#237'vel'
         FocusControl = txt_Imposto
       end
       object txt_Descricao: TDBEdit
@@ -93,7 +96,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
       object txt_Imposto: TDBEdit
         Left = 3
         Top = 112
-        Width = 134
+        Width = 141
         Height = 21
         DataField = 'IMPOSTO'
         DataSource = DSCadastro

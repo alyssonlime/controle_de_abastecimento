@@ -28,7 +28,10 @@ Create Table Abastecimentos (
   Valor Decimal(8, 2) Not Null,
   Imposto Decimal(8, 2) Not Null,
   ValorImposto Decimal(8, 2) Not Null,
-  Constraint PK_Abastecimentos Primary Key (Codigo),
-  Constraint PF_Abastecimentos_Bombas Foreign Key (Bomba) References Bombas(Codigo) Using Index IX_Abastecimentos_Bombas
-) 
-
+  Constraint PK_Abastecimentos Primary Key (Codigo) using Index IX_Abastecimentos_Codigo,
+  Constraint PF_Abastecimentos_Bombas Foreign Key (Bomba) References Bombas(Codigo) using Index IX_Abastecimentos_Bombas
+)
+Alter Table Abastecimentos Drop Constraint PK_Abastecimentos
+Alter Table Abastecimentos Add Constraint PK_Abastecimentos Primary Key (Codigo) using Index IX_Abastecimentos_Codigo
+Alter Table Abastecimentos Drop Constraint PF_Abastecimentos_Bombas
+Alter Table Abastecimentos Add Constraint PF_Abastecimentos_Bombas Foreign Key (Bomba) References Bombas(Codigo) using Index IX_Abastecimentos_Bombas  

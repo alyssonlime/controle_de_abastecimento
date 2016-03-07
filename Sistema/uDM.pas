@@ -26,12 +26,15 @@ var
 
 implementation
 
+uses uFrm_SisSplash;
+
 {$R *.dfm}
 
 procedure TDM.DataModuleCreate(Sender: TObject);
 var
   ArqINI: TINIFile;
 begin
+  TFrm_SisSplash.Create(Application).ShowModal;
   ArqINI := TINIFile.Create(GetCurrentDir + '\CONFIG.INI');
   try
     try

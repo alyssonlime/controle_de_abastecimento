@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, u_DF;
+  Dialogs, Menus, u_DF, StdCtrls, ExtCtrls, ComCtrls;
 
 type
   //TFrm_Principal = class(TForm)
@@ -19,6 +19,9 @@ type
     mnu_RelAbastecimentos: TMenuItem;
     mnu_Ajuda: TMenuItem;
     mnu_SisSobre: TMenuItem;
+    lbl_Nome: TLabel;
+    StatusBar: TStatusBar;
+    Tmr_Sistema: TTimer;
     procedure mnu_CadBombasClick(Sender: TObject);
     procedure mnu_CadTanquesClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -26,6 +29,7 @@ type
     procedure mnu_RelAbastecimentosClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure mnu_SisSobreClick(Sender: TObject);
+    procedure Tmr_SistemaTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -114,6 +118,13 @@ begin
   Frm_SisSobre.ShowModal;
   Frm_SisSobre.Free;
   Frm_SisSobre := nil;
+end;
+
+procedure TFrm_Principal.Tmr_SistemaTimer(Sender: TObject);
+begin
+  inherited;
+  StatusBar.Panels[0].Text :=
+    FormatDateTime('dddd'', ''dd '' de '' MMMM '' de '' yyyy '', '' HH:mm:ss ', Now);
 end;
 
 end.

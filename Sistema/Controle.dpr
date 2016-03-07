@@ -11,7 +11,8 @@ uses
   uFrm_MovAbastecimentos in 'uFrm_MovAbastecimentos.pas' {Frm_MovAbastecimentos},
   uFrm_RelAbastecimentos in 'uFrm_RelAbastecimentos.pas' {Frm_RelAbastecimentos},
   uFrm_RelAbastecimentos_RL in 'uFrm_RelAbastecimentos_RL.pas' {Frm_RelAbastecimentos_RL},
-  uFrm_SisSobre in 'uFrm_SisSobre.pas' {Frm_SisSobre};
+  uFrm_SisSobre in 'uFrm_SisSobre.pas' {Frm_SisSobre},
+  uFrm_SisSplash in 'uFrm_SisSplash.pas' {Frm_SisSplash};
 
 {$R *.res}
 
@@ -21,6 +22,5 @@ begin
   Application.Title := 'Controle de Abastecimentos';
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFrm_Principal, Frm_Principal);
-  Application.CreateForm(TFrm_SisSobre, Frm_SisSobre);
   Application.Run;
 end.

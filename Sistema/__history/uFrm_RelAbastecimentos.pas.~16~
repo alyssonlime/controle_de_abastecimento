@@ -1,0 +1,92 @@
+unit uFrm_RelAbastecimentos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, u_DF, StdCtrls, Buttons, Mask, ComCtrls;
+
+type
+  TFrm_RelAbastecimentos = class(T_DF)
+    Btn_Fechar: TBitBtn;
+    btn_Gerar: TBitBtn;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    dtp_DataInicial: TDateTimePicker;
+    dtp_DataFinal: TDateTimePicker;
+    procedure Btn_FecharClick(Sender: TObject);
+    procedure btn_GerarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure dtp_DataInicialKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure dtp_DataFinalKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Frm_RelAbastecimentos: TFrm_RelAbastecimentos;
+
+implementation
+
+uses uFrm_RelAbastecimentos_RL, uDM;
+
+{$R *.dfm}
+
+procedure TFrm_RelAbastecimentos.Btn_FecharClick(Sender: TObject);
+begin
+  inherited;
+   Close;
+end;
+
+procedure TFrm_RelAbastecimentos.btn_GerarClick(Sender: TObject);
+begin
+  inherited;
+  Frm_RelAbastecimentos_RL := TFrm_RelAbastecimentos_RL.Create(Self);
+  try
+    with Frm_RelAbastecimentos_RL do
+    begin
+      QRelatorio.Close;
+      QRelatorio.Params[0].Value := dtp_DataInicial.DateTime;
+      QRelatorio.Params[1].Value := dtp_DataFinal.DateTime;
+      QRelatorio.Open;
+      if QRelatorio.IsEmpty then
+      begin
+        DM.MsgBox('Nenhum registro encontrado com os filtros selecionados !', MB_ICONEXCLAMATION);
+        exit;
+      end;
+      lbl_Filtros.Caption := 'Data entre ' + FormatDateTime('dd/MM/yyyy', dtp_DataInicial.Date) +
+        ' e ' + FormatDateTime('dd/MM/yyyy', dtp_DataFinal.Date);
+      RLReport.PreviewModal;
+    end;
+  finally
+    Frm_RelAbastecimentos_RL.Free;
+    Frm_RelAbastecimentos_RL := nil;
+  end;
+end;
+
+procedure TFrm_RelAbastecimentos.dtp_DataFinalKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then btn_Gerar.SetFocus;
+end;
+
+procedure TFrm_RelAbastecimentos.dtp_DataInicialKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if DM.EnterOrTab(Key) then dtp_DataFinal.SetFocus;
+end;
+
+procedure TFrm_RelAbastecimentos.FormShow(Sender: TObject);
+begin
+  inherited;
+  dtp_DataInicial.SetFocus;
+end;
+
+end.

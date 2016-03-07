@@ -1,5 +1,5 @@
 inherited Frm_CadBombas: TFrm_CadBombas
-  Caption = 'Cadastro de Bombas'
+  Caption = 'Cadastro de Bombas de Combust'#237'vel'
   ClientHeight = 329
   ClientWidth = 761
   ExplicitWidth = 767
@@ -9,9 +9,12 @@ inherited Frm_CadBombas: TFrm_CadBombas
   inherited Tab_Form: TPageControl [0]
     Width = 586
     Height = 297
+    ActivePage = Tab_Detalhes
     ExplicitWidth = 586
     ExplicitHeight = 297
     inherited Tab_Listagem: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 578
       ExplicitHeight = 269
       inherited grid_Listagem: TDBGrid
@@ -42,7 +45,8 @@ inherited Frm_CadBombas: TFrm_CadBombas
       end
     end
     inherited Tab_Detalhes: TTabSheet
-      ExplicitLeft = 8
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 578
       ExplicitHeight = 269
       object Label2: TLabel [0]

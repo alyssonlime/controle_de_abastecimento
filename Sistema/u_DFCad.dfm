@@ -6,7 +6,6 @@ inherited _DFCad: T_DFCad
   ClientWidth = 745
   KeyPreview = True
   Position = poOwnerFormCenter
-  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -112,6 +111,10 @@ inherited _DFCad: T_DFCad
     object Tab_Detalhes: TTabSheet
       Caption = 'Detalhes'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 3
         Top = 3
