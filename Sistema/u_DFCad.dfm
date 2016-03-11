@@ -11,7 +11,7 @@ inherited _DFCad: T_DFCad
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitWidth = 751
-  ExplicitHeight = 365
+  ExplicitHeight = 366
   DesignSize = (
     745
     337)
@@ -111,10 +111,6 @@ inherited _DFCad: T_DFCad
     object Tab_Detalhes: TTabSheet
       Caption = 'Detalhes'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label1: TLabel
         Left = 3
         Top = 3

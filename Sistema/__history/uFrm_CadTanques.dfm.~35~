@@ -1,9 +1,7 @@
 inherited Frm_CadTanques: TFrm_CadTanques
-  Caption = 'Cadastro de Tanques'
-  ClientHeight = 345
+  Caption = 'Cadastro de Tanques de Combust'#237'vel'
   ClientWidth = 801
   ExplicitWidth = 807
-  ExplicitHeight = 374
   PixelsPerInch = 96
   TextHeight = 13
   inherited Btn_Excluir: TBitBtn
@@ -28,30 +26,30 @@ inherited Frm_CadTanques: TFrm_CadTanques
   end
   inherited Tab_Form: TPageControl
     Width = 626
-    Height = 313
     ActivePage = Tab_Detalhes
     ExplicitWidth = 626
-    ExplicitHeight = 313
     inherited Tab_Listagem: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 618
-      ExplicitHeight = 285
-      inherited DBGrid1: TDBGrid
+      ExplicitHeight = 0
+      inherited grid_Listagem: TDBGrid
         Top = 0
         Width = 612
-        Height = 282
+        Height = 274
         Columns = <
           item
             Expanded = False
             FieldName = 'Codigo'
             Title.Caption = 'C'#243'digo'
-            Width = 63
+            Width = 57
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO'
             Title.Caption = 'Descri'#231#227'o'
-            Width = 414
+            Width = 421
             Visible = True
           end
           item
@@ -64,8 +62,10 @@ inherited Frm_CadTanques: TFrm_CadTanques
       end
     end
     inherited Tab_Detalhes: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
       ExplicitWidth = 618
-      ExplicitHeight = 285
+      ExplicitHeight = 277
       object Label2: TLabel [1]
         Left = 3
         Top = 49
@@ -77,12 +77,13 @@ inherited Frm_CadTanques: TFrm_CadTanques
       object Label3: TLabel [2]
         Left = 3
         Top = 93
-        Width = 82
+        Width = 142
         Height = 13
-        Caption = 'Perc. de Imposto'
+        Caption = '% de Imposto do combust'#237'vel'
         FocusControl = txt_Imposto
       end
       object txt_Descricao: TDBEdit
+        Tag = 1
         Left = 3
         Top = 66
         Width = 598
@@ -90,15 +91,17 @@ inherited Frm_CadTanques: TFrm_CadTanques
         DataField = 'DESCRICAO'
         DataSource = DSCadastro
         TabOrder = 1
+        OnKeyDown = txt_DescricaoKeyDown
       end
       object txt_Imposto: TDBEdit
         Left = 3
         Top = 112
-        Width = 134
+        Width = 141
         Height = 21
         DataField = 'IMPOSTO'
         DataSource = DSCadastro
         TabOrder = 2
+        OnKeyDown = txt_ImpostoKeyDown
       end
     end
   end
@@ -132,6 +135,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
     TableName = 'TANQUES'
     object TCadastroDESCRICAO: TIBStringField [0]
       FieldName = 'DESCRICAO'
+      Required = True
       Size = 50
     end
     object TCadastroIMPOSTO: TIBBCDField

@@ -1,0 +1,14 @@
+unit uInterfaces;
+
+interface
+
+type
+  TRegistro = interface
+    procedure Abrir(Codigo: Integer);
+    procedure Salvar;
+    class function Listar;
+  end;
+
+implementation
+
+end.

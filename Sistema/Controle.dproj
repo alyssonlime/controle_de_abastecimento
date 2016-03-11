@@ -85,6 +85,8 @@
 			<DCCReference Include="uFrm_SisSplash.pas">
 				<Form>Frm_SisSplash</Form>
 			</DCCReference>
+			<DCCReference Include="uInterfaces.pas"/>
+			<DCCReference Include="uTTanque.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

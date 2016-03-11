@@ -29,10 +29,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
     ActivePage = Tab_Detalhes
     ExplicitWidth = 626
     inherited Tab_Listagem: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 618
-      ExplicitHeight = 0
       inherited grid_Listagem: TDBGrid
         Top = 0
         Width = 612
@@ -147,6 +144,12 @@ inherited Frm_CadTanques: TFrm_CadTanques
     end
   end
   inherited DSCadastro: TDataSource
+    DataSet = TableMemory
     Left = 224
+  end
+  object TableMemory: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 328
   end
 end

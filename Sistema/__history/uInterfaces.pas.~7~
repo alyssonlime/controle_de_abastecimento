@@ -1,0 +1,36 @@
+unit uInterfaces;
+
+interface
+
+type
+  TRegistro = class
+    constructor Create; virtual;
+    procedure Abrir(Codigo: Integer); virtual;
+    procedure Salvar; virtual;
+    procedure Listar; virtual;
+  end;
+
+implementation
+
+constructor TRegistro.Create;
+begin
+  //
+end;
+
+procedure TRegistro.Abrir(Codigo: Integer);
+begin
+  //
+end;
+
+procedure TRegistro.Salvar;
+begin
+  //
+end;
+
+procedure TRegistro.Listar;
+begin
+  //
+end;
+
+
+end.

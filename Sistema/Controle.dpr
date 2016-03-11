@@ -12,7 +12,9 @@ uses
   uFrm_RelAbastecimentos in 'uFrm_RelAbastecimentos.pas' {Frm_RelAbastecimentos},
   uFrm_RelAbastecimentos_RL in 'uFrm_RelAbastecimentos_RL.pas' {Frm_RelAbastecimentos_RL},
   uFrm_SisSobre in 'uFrm_SisSobre.pas' {Frm_SisSobre},
-  uFrm_SisSplash in 'uFrm_SisSplash.pas' {Frm_SisSplash};
+  uFrm_SisSplash in 'uFrm_SisSplash.pas' {Frm_SisSplash},
+  uInterfaces in 'uInterfaces.pas',
+  uTTanque in 'uTTanque.pas';
 
 {$R *.res}
 

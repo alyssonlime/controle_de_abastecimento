@@ -6,7 +6,6 @@ inherited _DFCad: T_DFCad
   ClientWidth = 745
   KeyPreview = True
   Position = poOwnerFormCenter
-  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -37,7 +36,6 @@ inherited _DFCad: T_DFCad
     Height = 57
     Anchors = [akTop, akRight]
     Caption = 'Novo'
-    Default = True
     DoubleBuffered = True
     NumGlyphs = 2
     ParentDoubleBuffered = False
@@ -93,8 +91,8 @@ inherited _DFCad: T_DFCad
       DesignSize = (
         562
         277)
-      object DBGrid1: TDBGrid
-        Left = 3
+      object grid_Listagem: TDBGrid
+        Left = 9
         Top = 3
         Width = 550
         Height = 271
@@ -107,11 +105,16 @@ inherited _DFCad: T_DFCad
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDblClick = grid_ListagemDblClick
       end
     end
     object Tab_Detalhes: TTabSheet
       Caption = 'Detalhes'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 3
         Top = 3
@@ -143,6 +146,7 @@ inherited _DFCad: T_DFCad
     BeforeEdit = TCadastroBeforeEdit
     BeforeInsert = TCadastroBeforeInsert
     BeforePost = TCadastroBeforePost
+    OnDeleteError = TCadastroDeleteError
     Left = 160
     object TCadastroCodigo: TIntegerField
       FieldName = 'Codigo'

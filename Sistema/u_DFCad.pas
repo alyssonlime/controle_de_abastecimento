@@ -167,6 +167,8 @@ end;
 procedure T_DFCad.FormCreate(Sender: TObject);
 begin
   inherited;
+  TCadastro.Database := nil;
+  TCadastro.CreateTable;
   TCadastro.Open;
   Tab_Form.TabIndex := 0;
 end;
