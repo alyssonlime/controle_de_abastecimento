@@ -9,19 +9,19 @@ uses
 
 type
   TFrm_CadTanques = class(T_DFCad)
-    TCadastroDESCRICAO: TIBStringField;
     Label2: TLabel;
     txt_Descricao: TDBEdit;
     Label3: TLabel;
     txt_Imposto: TDBEdit;
-    TCadastroIMPOSTO: TIBBCDField;
-    TableMemory: TClientDataSet;
     procedure Btn_NovoClick(Sender: TObject);
     procedure txt_DescricaoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure txt_ImpostoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure FormCreate(Sender: TObject);
+    procedure TCadastroBeforeDelete(DataSet: TDataSet);
+    procedure TCadastroBeforePost(DataSet: TDataSet);
+    procedure TCadastroAfterGetRecords(Sender: TObject;
+      var OwnerData: OleVariant);
   private
     { Private declarations }
   public
@@ -33,7 +33,7 @@ var
 
 implementation
 
-uses uDM;
+uses uDM, uClasses;
 
 {$R *.dfm}
 
@@ -44,15 +44,54 @@ begin
   txt_Descricao.SetFocus;
 end;
 
-procedure TFrm_CadTanques.FormCreate(Sender: TObject);
+procedure TFrm_CadTanques.TCadastroAfterGetRecords(Sender: TObject;
+  var OwnerData: OleVariant);
+var
+  Item: TTanque; Lista : TArray<TTanque>;
 begin
   inherited;
-  TableMemory.FieldDefs.Add('Codigo', ftInteger);
-  TableMemory.FieldDefs.Add('Descricao', ftString, 50);
-  TableMemory.FieldDefs.Add('Imposto', ftCurrency);
-  TableMemory.CreateDataSet;
-  TableMemory.LogChanges := False;
-  TableMemory.Open;
+  Lista := TTanque.Listar;
+  for Item in Lista do
+  begin
+    TCadastro.Append;
+    TCadastro.FieldValues['Codigo'] := Item.Codigo;
+    TCadastro.FieldValues['Descricao'] := Item.Descricao;
+    TCadastro.FieldValues['Imposto'] := Item.Imposto;
+    TCadastro.Post;
+  end;
+end;
+
+procedure TFrm_CadTanques.TCadastroBeforeDelete(DataSet: TDataSet);
+var
+  Item: TTanque;
+begin
+  inherited;
+  Item := TTanque.Create;
+  try
+    Item.Abrir(TCadastro.FieldByName('Codigo').AsInteger);
+    Item.Deletar;
+  finally
+    FreeAndNil(Item);
+  end;
+end;
+
+procedure TFrm_CadTanques.TCadastroBeforePost(DataSet: TDataSet);
+var
+  Item : TTanque;
+begin
+  inherited;
+  Item := TTanque.Create;
+  try
+    if TCadastro.State = dsEdit then
+      Item.Abrir(TCadastro.FieldByName('Codigo').AsInteger);
+    Item.Descricao := TCadastro.FieldByName('Descricao').AsString;
+    Item.Imposto := TCadastro.FieldByName('Imposto').AsCurrency;
+    Item.Salvar;
+    if TCadastro.State = dsInsert then
+      TCadastro.FieldByName('Codigo').AsInteger := Item.Codigo;
+  finally
+    FreeAndNil(Item);
+  end;
 end;
 
 procedure TFrm_CadTanques.txt_DescricaoKeyDown(Sender: TObject; var Key: Word;

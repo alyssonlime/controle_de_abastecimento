@@ -1,0 +1,582 @@
+unit uClasses;
+
+interface
+
+uses
+  SysUtils, Variants, Classes, IBQuery;
+
+const
+  RegMsgNaoEncontrado = 'Registro não encontrado';
+  RegMsgOperacaoFalhou = 'Operação falhou';
+
+type
+  TRegistroAcao = (raInclusao, raEdicao, raDeletado);
+
+  TRegistro = class(TObject)
+  private
+    FCodigo: Integer;
+    F_Acao: TRegistroAcao;
+    function GerarCodigo: Integer;
+    class function NomeTabela: String; virtual; abstract;
+  public
+    property Codigo: Integer read FCodigo;
+    constructor Create; overload;
+    destructor Destroy; override;
+    {class function Novo: TRegistro; virtual; abstract;
+    class function Abrir(Codigo: Integer): TRegistro; virtual; abstract;}
+    procedure Salvar; virtual; abstract;
+    procedure Deletar; virtual; abstract;
+  end;
+
+
+  TTanque = class(TRegistro)
+  private
+    FDescricao: String;
+    FImposto: Currency;
+    class function NomeTabela: String; override;
+  public
+    property Descricao: String read FDescricao write FDescricao;
+    property Imposto: Currency read FImposto write FImposto;
+    {class function Novo: TTanque; reintroduce;}
+    {class function Abrir(Codigo: Integer): TTanque; reintroduce;}
+    constructor Create(Codigo: Integer); overload;
+    procedure Salvar; override;
+    procedure Deletar; override;
+    class function Listar: TArray<TTanque>;
+    class function ObterImposto(Tanque: Integer): Double;
+  end;
+
+  TBomba = class(TRegistro)
+  private
+    FDescricao: String;
+    FTanque: Integer;
+    class function NomeTabela: String; override;
+  public
+    property Descricao: String read FDescricao write FDescricao;
+    property Tanque: Integer read FTanque write FTanque;
+    {class function Novo: TBomba; reintroduce;}
+    {class function Abrir(Codigo: Integer): TBomba; reintroduce;}
+    constructor Create(Codigo: Integer); overload;
+    procedure Salvar; override;
+    procedure Deletar; override;
+    class function Listar: TArray<TBomba>;
+    class function ObterTanque(Bomba: Integer): Integer;
+  end;
+
+  TAbastecimento = class(TRegistro)
+  private
+    FData: TDate;
+    FHora: TTime;
+    FBomba: Integer;
+    FLitros: Double;
+    FValor: Currency;
+    FImposto: Double;
+    FValorImposto: Currency;
+    class function NomeTabela: String; override;
+  public
+    {PROPRIEDADES}
+    property Data: TDate read FData write FData;
+    property Hora: TTime read FHora write FHora;
+    property Bomba: Integer read FBomba write FBomba;
+    property Litros: Double read FLitros write FLitros;
+    property Valor: Currency read FValor write FValor;
+    property Imposto: Double read FImposto write FImposto;
+    property ValorImposto: Currency read FValorImposto write FValorImposto;
+    {AÇÕES}
+    {class function Novo: TAbastecimento; reintroduce;}
+    {class function Abrir(Codigo: Integer): TAbastecimento; reintroduce;}
+    constructor Create(Codigo: Integer); overload;
+    procedure Salvar; override;
+    procedure Deletar; override;
+    procedure CalcularTotais;
+    class function Listar: TArray<TAbastecimento>;
+  end;
+
+implementation
+
+uses uDM;
+
+//******************************************************************************
+
+constructor TRegistro.Create;
+begin
+  inherited;
+  F_Acao := raInclusao;
+end;
+
+destructor TRegistro.Destroy;
+begin
+  inherited;
+end;
+
+function  TRegistro.GerarCodigo: Integer;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Text := 'Select MAX(Codigo) From ' + NomeTabela;
+    Query.Open;
+    Result := Query.Fields[0].AsInteger + 1;
+  finally
+    Query.Free;
+  end;
+end;
+
+//******************************************************************************
+
+class function TTanque.NomeTabela;
+begin
+  Result := 'Tanques';
+end;
+
+{class function TTanque.Novo: TTanque;
+begin
+  Result := TTanque.Create;
+  Result.F_Acao := raInclusao;
+end;}
+
+{class function TTanque.Abrir(Codigo: Integer): TTanque;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    Result := TTanque.Create;
+    Result.F_Acao := raEdicao;
+    Result.FCodigo := Codigo;
+    Result.FDescricao := Query.FieldByName('Descricao').AsString;
+    Result.FImposto := Query.FieldByName('Imposto').AsCurrency;
+  finally
+    Query.Free;
+  end;
+end;}
+
+constructor TTanque.Create(Codigo: Integer);
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    F_Acao := raEdicao;
+    FCodigo := Codigo;
+    FDescricao := Query.FieldByName('Descricao').AsString;
+    FImposto := Query.FieldByName('Imposto').AsCurrency;
+  finally
+    Query.Free;
+  end;
+end;
+
+procedure TTanque.Salvar;
+var
+  Query: TIBQuery;
+begin
+  inherited;
+  Query := DM.NewQuery;
+  try
+    case F_Acao of
+      raInclusao:
+        begin
+          Query.SQL.Add('Insert Into ' + NomeTabela);
+          Query.SQL.Add('(Codigo, Descricao, Imposto)');
+          Query.SQL.Add('Values (');
+          Query.SQL.Add(':Codigo, :Descricao, :Imposto');
+          Query.SQL.Add(')');
+          FCodigo := GerarCodigo;
+        end;
+      raEdicao:
+        begin
+          Query.SQL.Add('Update ' + NomeTabela + ' Set');
+          Query.SQL.Add('Codigo = :Codigo,');
+          Query.SQL.Add('Descricao = :Descricao,');
+          Query.SQL.Add('Imposto = :Imposto');
+          Query.SQL.Add('Where Codigo = :Codigo');
+        end;
+    end;
+    Query.Params.ParamValues['Codigo'] := FCodigo;
+    Query.Params.ParamValues['Descricao'] := FDescricao;
+    Query.Params.ParamValues['Imposto'] := FImposto;
+    Query.ExecSQL;
+    if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou');
+  finally
+    Query.Free;
+  end;
+end;
+
+procedure TTanque.Deletar;
+var
+  Query: TIBQuery;
+begin
+  inherited;
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Delete From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(FCodigo));
+    Query.ExecSQL;
+    if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TTanque.Listar: TArray<TTanque>;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.Open;
+    if not Query.IsEmpty then
+    begin
+      SetLength(Result, Query.RecordCount);
+      while not Query.Eof do
+      begin
+        Result[Query.RecNo-1] := TTanque.Create;
+        Result[Query.RecNo-1].F_Acao := raEdicao;
+        Result[Query.RecNo-1].FCodigo := Query.FieldByName('Codigo').AsInteger;
+        Result[Query.RecNo-1].FDescricao := Query.FieldByName('Descricao').AsString;
+        Result[Query.RecNo-1].FImposto := Query.FieldByName('Imposto').AsCurrency;
+        Query.Next;
+      end;
+    end;
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TTanque.ObterImposto(Tanque: Integer): Double;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select Imposto From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Tanque));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    Result := Query.FieldByName('Imposto').AsFloat;
+  finally
+    Query.Free;
+  end;
+end;
+
+//******************************************************************************
+
+class function TBomba.NomeTabela;
+begin
+  Result := 'Bombas';
+end;
+
+{class function TBomba.Novo: TBomba;
+begin
+  Result := TBomba.Create;
+  Result.F_Acao := raInclusao;
+end;}
+
+{class function TBomba.Abrir(Codigo: Integer): TBomba;
+var
+  Query: TIBQuery;
+begin
+  inherited;
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    Result := TBomba.Create;
+    Result.F_Acao := raEdicao;
+    Result.FCodigo := Codigo;
+    Result.FDescricao := Query.FieldByName('Descricao').AsString;
+    Result.FTanque := Query.FieldByName('Tanque').AsInteger;
+  finally
+    Query.Free;
+  end;
+end;  }
+
+constructor TBomba.Create(Codigo: Integer);
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    F_Acao := raEdicao;
+    FCodigo := Codigo;
+    FDescricao := Query.FieldByName('Descricao').AsString;
+    FTanque := Query.FieldByName('Tanque').AsInteger;
+  finally
+    Query.Free;
+  end;
+end;
+
+procedure TBomba.Salvar;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    case F_Acao of
+      raInclusao:
+        begin
+          Query.SQL.Add('Insert Into ' + NomeTabela);
+          Query.SQL.Add('(Codigo, Descricao, Tanque)');
+          Query.SQL.Add('Values (');
+          Query.SQL.Add(':Codigo, :Descricao, :Tanque');
+          Query.SQL.Add(')');
+          FCodigo := GerarCodigo;
+        end;
+      raEdicao:
+        begin
+          Query.SQL.Add('Update ' + NomeTabela + ' Set');
+          Query.SQL.Add('Descricao = :Descricao,');
+          Query.SQL.Add('Tanque = :Tanque');
+          Query.SQL.Add('Where Codigo = :Codigo');
+        end;
+    end;
+    Query.Params.ParamValues['Codigo'] := FCodigo;
+    Query.Params.ParamValues['Descricao'] := FDescricao;
+    Query.Params.ParamValues['Tanque'] := FTanque;
+    Query.ExecSQL;
+    if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+  finally
+    Query.Free;
+  end;
+end;
+
+procedure TBomba.Deletar;
+var
+  Query: TIBQuery;
+begin
+  inherited;
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Delete From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(FCodigo));
+    Query.ExecSQL;
+    if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TBomba.Listar: TArray<TBomba>;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.Open;
+    if not Query.IsEmpty then
+    begin
+      SetLength(Result, Query.RecordCount);
+      while not Query.Eof do
+      begin
+        Result[Query.RecNo-1] := TBomba.Create;
+        Result[Query.RecNo-1].F_Acao := raEdicao;
+        Result[Query.RecNo-1].FCodigo := Query.FieldByName('Codigo').AsInteger;
+        Result[Query.RecNo-1].FDescricao := Query.FieldByName('Descricao').AsString;
+        Result[Query.RecNo-1].FTanque := Query.FieldByName('Tanque').AsInteger;
+        Query.Next;
+      end;
+    end;
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TBomba.ObterTanque(Bomba: Integer): Integer;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select Tanque From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Bomba));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    Result := Query.FieldByName('Tanque').AsInteger;
+  finally
+    Query.Free;
+  end;
+end;
+
+//******************************************************************************
+
+class function TAbastecimento.NomeTabela;
+begin
+  Result := 'Abastecimentos';
+end;
+
+{class function TAbastecimento.Novo: TAbastecimento;
+begin
+  Result := TAbastecimento.Create;
+  Result.F_Acao := raInclusao;
+end;}
+
+{class function TAbastecimento.Abrir(Codigo: Integer): TAbastecimento;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    Result := TAbastecimento.Create;
+    Result.F_Acao := raEdicao;
+    Result.FCodigo := Codigo;
+    Result.FData := Query.FieldByName('Data').AsDateTime;
+    Result.FHora := Query.FieldByName('Hora').AsDateTime;
+    Result.FBomba := Query.FieldByName('Bomba').AsInteger;
+    Result.FLitros := Query.FieldByName('Litros').AsFloat;
+    Result.FValor := Query.FieldByName('Valor').AsCurrency;
+    Result.FImposto := Query.FieldByName('Imposto').AsFloat;
+    Result.FValorImposto := Query.FieldByName('ValorImposto').AsCurrency;
+  finally
+    Query.Free;
+  end;
+end;}
+
+constructor TAbastecimento.Create(Codigo: Integer);
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
+    Query.Open;
+    if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    F_Acao := raEdicao;
+    FCodigo := Codigo;
+    FData := Query.FieldByName('Data').AsDateTime;
+    FHora := Query.FieldByName('Hora').AsDateTime;
+    FBomba := Query.FieldByName('Bomba').AsInteger;
+    FLitros := Query.FieldByName('Litros').AsFloat;
+    FValor := Query.FieldByName('Valor').AsCurrency;
+    FImposto := Query.FieldByName('Imposto').AsFloat;
+    FValorImposto := Query.FieldByName('ValorImposto').AsCurrency;
+  finally
+    Query.Free;
+  end;
+end;
+
+procedure TAbastecimento.CalcularTotais;
+var
+  Tanque: Integer;
+begin
+  Tanque := TBomba.ObterTanque(FBomba);
+  FImposto := TTanque.ObterImposto(Tanque);
+  FValorImposto := FValor * FImposto / 100;
+end;
+
+procedure TAbastecimento.Salvar;
+var
+  Query: TIBQuery;
+begin
+  CalcularTotais;
+  Query := DM.NewQuery;
+  try
+    case F_Acao of
+      raInclusao:
+        begin
+          Query.SQL.Add('Insert Into ' + NomeTabela);
+          Query.SQL.Add('(Codigo, Data, Hora, Bomba, Litros, Valor, Imposto, ValorImposto)');
+          Query.SQL.Add('Values (');
+          Query.SQL.Add(':Codigo,:Data,:Hora,:Bomba,:Litros,:Valor,:Imposto,:ValorImposto');
+          Query.SQL.Add(')');
+          FCodigo := GerarCodigo;
+        end;
+      raEdicao:
+        begin
+          Query.SQL.Add('Update ' + NomeTabela + ' Set');
+          Query.SQL.Add('Data = :Data,');
+          Query.SQL.Add('Hora = :Hora,');
+          Query.SQL.Add('Bomba = :Bomba,');
+          Query.SQL.Add('Litros = :Litros,');
+          Query.SQL.Add('Valor = :Valor,');
+          Query.SQL.Add('Imposto = :Imposto,');
+          Query.SQL.Add('ValorImposto = :ValorImposto');
+          Query.SQL.Add('Where Codigo = :Codigo');
+        end;
+    end;
+    Query.Params.ParamValues['Codigo'] := FCodigo;
+    Query.Params.ParamValues['Data'] := TDatetime(FData);
+    Query.Params.ParamValues['Hora'] := TDatetime(FHora);
+    Query.Params.ParamValues['Bomba'] := FBomba;
+    Query.Params.ParamValues['Litros'] := FLitros;
+    Query.Params.ParamValues['Valor'] := FValor;
+    Query.Params.ParamValues['Imposto'] := FImposto;
+    Query.Params.ParamValues['ValorImposto'] := FValorImposto;
+    Query.ExecSQL;
+    if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+  finally
+    Query.Free;
+  end;
+end;
+
+procedure TAbastecimento.Deletar;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Delete From ' + NomeTabela);
+    Query.SQL.Add('Where Codigo = ' + IntToStr(FCodigo));
+    Query.ExecSQL;
+    if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TAbastecimento.Listar: TArray<TAbastecimento>;
+var
+  Query: TIBQuery;
+begin
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.Open;
+    if not Query.IsEmpty then
+    begin
+      SetLength(Result, Query.RecordCount);
+      while not Query.Eof do
+      begin
+        Result[Query.RecNo-1] := TAbastecimento.Create;
+        Result[Query.RecNo-1].F_Acao := raEdicao;
+        Result[Query.RecNo-1].FCodigo := Query.FieldByName('Codigo').AsInteger;
+        Result[Query.RecNo-1].FData := Query.FieldByName('Data').AsDateTime;
+        Result[Query.RecNo-1].FHora := Query.FieldByName('Hora').AsDateTime;
+        Result[Query.RecNo-1].FBomba := Query.FieldByName('Bomba').AsInteger;
+        Result[Query.RecNo-1].FLitros := Query.FieldByName('Bomba').AsFloat;
+        Result[Query.RecNo-1].FValor := Query.FieldByName('Valor').AsCurrency;
+        Result[Query.RecNo-1].FImposto := Query.FieldByName('Imposto').AsFloat;
+        Result[Query.RecNo-1].FValorImposto := Query.FieldByName('ValorImposto').AsCurrency;
+        Query.Next;
+      end;
+    end;
+  finally
+    Query.Free;
+  end;
+end;
+
+
+
+
+end.

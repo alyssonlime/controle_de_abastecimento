@@ -68,6 +68,10 @@ inherited Frm_Principal: TFrm_Principal
         Caption = 'Sorbe'
         OnClick = mnu_SisSobreClick
       end
+      object esteClasses1: TMenuItem
+        Caption = 'TesteClasses'
+        OnClick = esteClasses1Click
+      end
     end
   end
   object Tmr_Sistema: TTimer

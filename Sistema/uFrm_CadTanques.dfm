@@ -10,7 +10,9 @@ inherited Frm_CadTanques: TFrm_CadTanques
   end
   inherited Btn_Novo: TBitBtn
     Left = 648
+    Top = 22
     ExplicitLeft = 648
+    ExplicitTop = 22
   end
   inherited Btn_Salvar: TBitBtn
     Left = 648
@@ -26,7 +28,6 @@ inherited Frm_CadTanques: TFrm_CadTanques
   end
   inherited Tab_Form: TPageControl
     Width = 626
-    ActivePage = Tab_Detalhes
     ExplicitWidth = 626
     inherited Tab_Listagem: TTabSheet
       ExplicitWidth = 618
@@ -59,10 +60,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
       end
     end
     inherited Tab_Detalhes: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 618
-      ExplicitHeight = 277
       object Label2: TLabel [1]
         Left = 3
         Top = 49
@@ -85,7 +83,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
         Top = 66
         Width = 598
         Height = 21
-        DataField = 'DESCRICAO'
+        DataField = 'Descricao'
         DataSource = DSCadastro
         TabOrder = 1
         OnKeyDown = txt_DescricaoKeyDown
@@ -95,15 +93,17 @@ inherited Frm_CadTanques: TFrm_CadTanques
         Top = 112
         Width = 141
         Height = 21
-        DataField = 'IMPOSTO'
+        DataField = 'Imposto'
         DataSource = DSCadastro
         TabOrder = 2
         OnKeyDown = txt_ImpostoKeyDown
       end
     end
   end
-  inherited TCadastro: TIBTable
-    Active = True
+  inherited DSCadastro: TDataSource
+    Left = 224
+  end
+  inherited TCadastro: TClientDataSet
     FieldDefs = <
       item
         Name = 'CODIGO'
@@ -128,28 +128,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
         Fields = 'CODIGO'
         Options = [ixUnique]
       end>
-    StoreDefs = True
-    TableName = 'TANQUES'
-    object TCadastroDESCRICAO: TIBStringField [0]
-      FieldName = 'DESCRICAO'
-      Required = True
-      Size = 50
-    end
-    object TCadastroIMPOSTO: TIBBCDField
-      FieldName = 'IMPOSTO'
-      Required = True
-      DisplayFormat = '#,##0.00'
-      Precision = 9
-      Size = 2
-    end
-  end
-  inherited DSCadastro: TDataSource
-    DataSet = TableMemory
-    Left = 224
-  end
-  object TableMemory: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    Left = 328
+    AfterGetRecords = TCadastroAfterGetRecords
+    Left = 160
   end
 end

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, u_DF, StdCtrls, Buttons, ComCtrls, DB, IBCustomDataSet, IBQuery,
   IBTable, Mask, DBCtrls, Grids, DBGrids, ActnList,
-  PlatformDefaultStyleActnCtrls, ActnMan;
+  PlatformDefaultStyleActnCtrls, ActnMan, DBClient;
 
 type
   T_DFCad = class(T_DF)
@@ -18,12 +18,11 @@ type
     Tab_Form: TPageControl;
     Tab_Listagem: TTabSheet;
     Tab_Detalhes: TTabSheet;
-    TCadastro: TIBTable;
     DSCadastro: TDataSource;
     txt_Codigo: TDBEdit;
     Label1: TLabel;
     grid_Listagem: TDBGrid;
-    TCadastroCodigo: TIntegerField;
+    TCadastro: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure TCadastroBeforePost(DataSet: TDataSet);
     procedure Btn_NovoClick(Sender: TObject);
@@ -167,8 +166,8 @@ end;
 procedure T_DFCad.FormCreate(Sender: TObject);
 begin
   inherited;
-  TCadastro.Database := nil;
-  TCadastro.CreateTable;
+  TCadastro.CreateDataSet;
+  TCadastro.LogChanges := False;
   TCadastro.Open;
   Tab_Form.TabIndex := 0;
 end;
@@ -234,11 +233,10 @@ begin
   inherited;
   if TCadastro.State = DSInsert then
   begin
-    if TCadastro.FieldByName('Codigo').AsInteger = 0 then
+    {if TCadastro.FieldByName('Codigo').AsInteger = 0 then
     begin
       with TIBQuery.Create(Self) do
       try
-        Database := TCadastro.Database;
         SQL.Text := 'Select MAX(Codigo) From ' + TCadastro.TableName;
         Open;
         TCadastro['Codigo'] := Fields[0].AsInteger + 1;
@@ -246,7 +244,7 @@ begin
         Close;
         Free;
       end;
-    end;
+    end;  }
   end;
   //for x := low(TCadastro.Fields) to high(TCadastro.Fields) do
   for Field in TCadastro.Fields do

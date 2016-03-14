@@ -65,44 +65,41 @@ end;
 procedure TFrm_RelAbastecimentos.btn_GerarClick(Sender: TObject);
 var
   SQL: String;
+  Rel: TFrm_RelAbastecimentos_RL;
 begin
   inherited;
-  Frm_RelAbastecimentos_RL := TFrm_RelAbastecimentos_RL.Create(Self);
+  Rel := TFrm_RelAbastecimentos_RL.Create(Self);
   try
-    with Frm_RelAbastecimentos_RL do
-    begin
-      QRelatorio.Close;
-      QRelatorio.Params.ParamValues['DI'] := dtp_DataInicial.DateTime;
-      QRelatorio.Params.ParamValues['DF'] := dtp_DataFinal.DateTime;
-      lbl_Filtros.Caption := 'Data entre ' + FormatDateTime('dd/MM/yyyy', dtp_DataInicial.Date) +
+    Rel.QRelatorio.Close;
+    Rel.QRelatorio.Params.ParamValues['DI'] := dtp_DataInicial.DateTime;
+    Rel.QRelatorio.Params.ParamValues['DF'] := dtp_DataFinal.DateTime;
+    Rel.lbl_Filtros.Caption := 'Data entre ' + FormatDateTime('dd/MM/yyyy', dtp_DataInicial.Date) +
         ' e ' + FormatDateTime('dd/MM/yyyy', dtp_DataFinal.Date);
       if cbo_Tanque.Text <> '' then
       begin
-        SQL := QRelatorio.SQL.Text;
+        SQL := Rel.QRelatorio.SQL.Text;
         SQL := StringReplace(SQL, 'Group By', ' And B.Tanque = :TQ Group By', [rfIgnoreCase]);
-        QRelatorio.SQL.Text := SQL;
-        QRelatorio.Params.ParamValues['TQ'] := cbo_Tanque.KeyValue;
-        lbl_Filtros.Caption := lbl_Filtros.Caption + '; Tanque: ' + cbo_Tanque.Text;
+        Rel.QRelatorio.SQL.Text := SQL;
+        Rel.QRelatorio.Params.ParamValues['TQ'] := cbo_Tanque.KeyValue;
+        Rel.lbl_Filtros.Caption := Rel.lbl_Filtros.Caption + '; Tanque: ' + cbo_Tanque.Text;
       end;
       if cbo_Bombas.Text <> '' then
       begin
-        SQL := QRelatorio.SQL.Text;
+        SQL := Rel.QRelatorio.SQL.Text;
         SQL := StringReplace(SQL, 'Group By', ' And A.Bomba = :BB Group By', [rfIgnoreCase]);
-        QRelatorio.SQL.Text := SQL;
-        QRelatorio.Params.ParamValues['BB'] := cbo_Bombas.KeyValue;
-        lbl_Filtros.Caption := lbl_Filtros.Caption + '; Bomba: ' + cbo_Bombas.Text;
+        Rel.QRelatorio.SQL.Text := SQL;
+        Rel.QRelatorio.Params.ParamValues['BB'] := cbo_Bombas.KeyValue;
+        Rel.lbl_Filtros.Caption := Rel.lbl_Filtros.Caption + '; Bomba: ' + cbo_Bombas.Text;
       end;
-      QRelatorio.Open;
-      if QRelatorio.IsEmpty then
+      Rel.QRelatorio.Open;
+      if Rel.QRelatorio.IsEmpty then
       begin
         DM.MsgBox('Nenhum registro encontrado com os filtros selecionados !', MB_ICONEXCLAMATION);
         exit;
       end;
-      RLReport.PreviewModal;
-    end;
+      Rel.RLReport.PreviewModal;
   finally
-    Frm_RelAbastecimentos_RL.Free;
-    Frm_RelAbastecimentos_RL := nil;
+    FreeAndNil(Rel);
     dtp_DataInicial.SetFocus;
   end;
 end;

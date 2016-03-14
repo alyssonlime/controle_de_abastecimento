@@ -9,12 +9,9 @@ inherited Frm_CadBombas: TFrm_CadBombas
   inherited Tab_Form: TPageControl [0]
     Width = 586
     Height = 297
-    ActivePage = Tab_Detalhes
     ExplicitWidth = 586
     ExplicitHeight = 297
     inherited Tab_Listagem: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 578
       ExplicitHeight = 269
       inherited grid_Listagem: TDBGrid
@@ -45,8 +42,6 @@ inherited Frm_CadBombas: TFrm_CadBombas
       end
     end
     inherited Tab_Detalhes: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
       ExplicitWidth = 578
       ExplicitHeight = 269
       object Label2: TLabel [0]
@@ -71,7 +66,7 @@ inherited Frm_CadBombas: TFrm_CadBombas
         Top = 68
         Width = 558
         Height = 21
-        DataField = 'DESCRICAO'
+        DataField = 'Descricao'
         DataSource = DSCadastro
         TabOrder = 0
         OnKeyDown = txt_DescricaoKeyDown
@@ -81,8 +76,6 @@ inherited Frm_CadBombas: TFrm_CadBombas
         Top = 114
         Width = 558
         Height = 21
-        DataField = 'DescricaoTanque'
-        DataSource = DSCadastro
         TabOrder = 1
         OnKeyDown = cbo_TanqueKeyDown
       end
@@ -121,31 +114,25 @@ inherited Frm_CadBombas: TFrm_CadBombas
     ExplicitLeft = 608
     ExplicitTop = 72
   end
-  inherited TCadastro: TIBTable
-    TableName = 'BOMBAS'
-    Left = 208
-    object TCadastroDESCRICAO: TIBStringField [0]
-      FieldName = 'DESCRICAO'
-      Required = True
-      Size = 50
-    end
-    object TCadastroTANQUE: TIntegerField [1]
-      FieldName = 'TANQUE'
-      Required = True
-    end
-    object TCadastroDescricaoTanque: TIBStringField [2]
-      FieldKind = fkLookup
-      FieldName = 'DescricaoTanque'
-      LookupDataSet = TTanques
-      LookupKeyFields = 'CODIGO'
-      LookupResultField = 'DESCRICAO'
-      KeyFields = 'TANQUE'
-      Size = 50
-      Lookup = True
-    end
-  end
   inherited DSCadastro: TDataSource
     Left = 264
+  end
+  inherited TCadastro: TClientDataSet
+    FieldDefs = <
+      item
+        Name = 'Codigo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Descricao'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'Tanque'
+        DataType = ftInteger
+      end>
+    Left = 208
   end
   object TTanques: TIBTable
     Database = DM.Conexao

@@ -3,7 +3,7 @@ unit uDM;
 interface
 
 uses
-  SysUtils, Classes, DB, IBDatabase, Windows, Forms, INIFiles;
+  SysUtils, Classes, DB, IBDatabase, Windows, Forms, INIFiles, IBQuery;
 
 type
   TDM = class(TDataModule)
@@ -17,6 +17,7 @@ type
     function MsgBox(Mensagem: String; Opcoes: Integer = 0): Integer;
     function EnterOrTab(key: Word): Boolean;
     procedure TratarErro(e: Exception);
+    function NewQuery: TIBQuery;
   end;
 
 Const
@@ -69,6 +70,12 @@ begin
     Key := 0;
     Result := True;
   end;
+end;
+
+function  TDM.NewQuery: TIBQuery;
+begin
+  Result := TIBQuery.Create(Self);
+  Result.Database := DM.Conexao;
 end;
 
 procedure TDM.TratarErro(e: Exception);

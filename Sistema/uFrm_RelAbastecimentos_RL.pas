@@ -42,8 +42,8 @@ type
     { Public declarations }
   end;
 
-var
-  Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL;
+//var
+  //Frm_RelAbastecimentos_RL: TFrm_RelAbastecimentos_RL;
 
 implementation
 

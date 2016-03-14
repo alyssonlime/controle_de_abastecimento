@@ -1,0 +1,47 @@
+unit uInterfaces;
+
+interface
+
+type
+  TRegistro = class(TObject)
+  private
+    FCodigo: Integer;
+    F_NomeTabela: Integer;
+  protected
+    property Codigo: Integer read FCodigo;
+    constructor Create; virtual;
+    procedure Abrir(Codigo: Integer); virtual;
+    procedure Salvar; virtual;
+    procedure Listar; virtual;
+    function GetTabela: String; virtual;
+  end;
+
+implementation
+
+constructor TRegistro.Create;
+begin
+  //
+end;
+
+procedure TRegistro.Abrir(Codigo: Integer);
+begin
+  //
+end;
+
+procedure TRegistro.Salvar;
+begin
+  //
+end;
+
+procedure TRegistro.Listar;
+begin
+  //
+end;
+
+function TRegistro.GetTabela: String;
+begin
+  Result := F_NomeTabela;
+end;
+
+
+end.
