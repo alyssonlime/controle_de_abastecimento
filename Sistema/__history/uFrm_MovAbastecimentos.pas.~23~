@@ -75,8 +75,7 @@ begin
     begin
       if Field.FieldName = 'BOMBA' then
       begin
-        //REMOVER
-        {with TIBQuery.Create(Self) do
+        with TIBQuery.Create(Self) do
         try
           Database := DM.Conexao;
           SQL.Text := 'Select Imposto From Tanques Where Codigo = ' + TBombasTANQUE.AsString;
@@ -85,7 +84,7 @@ begin
             TCadastro.FieldByName('IMPOSTO').Value := Fields[0].AsCurrency;
         finally
           Free;
-        end;  }
+        end;
       end;
       if (Field.FieldName = 'BOMBA') or (Field.FieldName = 'VALOR') then
       begin

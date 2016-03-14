@@ -2,6 +2,7 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
   Caption = 'Abastecimentos'
   ClientWidth = 753
   ExplicitWidth = 759
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited Btn_Excluir: TBitBtn
@@ -28,7 +29,10 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
     Width = 578
     ExplicitWidth = 578
     inherited Tab_Listagem: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 570
+      ExplicitHeight = 0
       inherited grid_Listagem: TDBGrid
         Width = 558
         Columns = <
@@ -286,7 +290,6 @@ inherited Frm_MovAbastecimentos: TFrm_MovAbastecimentos
     Transaction = DM.Transacao
     BeforeDelete = TCadastroBeforeDelete
     BeforePost = TCadastroBeforePost
-    Active = True
     FieldDefs = <
       item
         Name = 'CODIGO'

@@ -5,10 +5,6 @@ interface
 uses
   SysUtils, Variants, Classes, IBQuery;
 
-const
-  RegMsgNaoEncontrado = 'Registro não encontrado';
-  RegMsgOperacaoFalhou = 'Operação falhou';
-
 type
   TRegistroAcao = (raInclusao, raEdicao, raDeletado);
 
@@ -19,9 +15,11 @@ type
     function GerarCodigo: Integer;
     class function NomeTabela: String; virtual; abstract;
   public
+    {PROPRIEDADES}
     property Codigo: Integer read FCodigo;
-    constructor Create; virtual;
+    constructor Create;
     destructor Destroy; override;
+    {AÇÕES}
     procedure Abrir(Codigo: Integer); virtual; abstract;
     procedure Salvar; virtual; abstract;
     procedure Deletar; virtual; abstract;
@@ -34,8 +32,10 @@ type
     FImposto: Currency;
     class function NomeTabela: String; override;
   public
+    {PROPRIEDADES}
     property Descricao: String read FDescricao write FDescricao;
     property Imposto: Currency read FImposto write FImposto;
+    {AÇÕES}
     procedure Abrir(Codigo: Integer); override;
     procedure Salvar; override;
     procedure Deletar; override;
@@ -49,8 +49,10 @@ type
     FTanque: Integer;
     class function NomeTabela: String; override;
   public
+    {PROPRIEDADES}
     property Descricao: String read FDescricao write FDescricao;
     property Tanque: Integer read FTanque write FTanque;
+    {AÇÕES}
     procedure Abrir(Codigo: Integer); override;
     procedure Salvar; override;
     procedure Deletar; override;
@@ -69,6 +71,7 @@ type
     FValorImposto: Currency;
     class function NomeTabela: String; override;
   public
+    {PROPRIEDADES}
     property Data: TDate read FData write FData;
     property Hora: TTime read FHora write FHora;
     property Bomba: Integer read FBomba write FBomba;
@@ -76,6 +79,7 @@ type
     property Valor: Currency read FValor write FValor;
     property Imposto: Double read FImposto write FImposto;
     property ValorImposto: Currency read FValorImposto write FValorImposto;
+    {AÇÕES}
     procedure Abrir(Codigo: Integer); override;
     procedure Salvar; override;
     procedure Deletar; override;
@@ -125,17 +129,16 @@ procedure TTanque.Abrir(Codigo: Integer);
 var
   Query: TIBQuery;
 begin
-  inherited;
   Query := DM.NewQuery;
   try
     Query.SQL.Add('Select * From ' + NomeTabela);
     Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
     Query.Open;
     if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    F_Acao := raEdicao;
     FCodigo := Codigo;
     FDescricao := Query.FieldByName('Descricao').AsString;
     FImposto := Query.FieldByName('Imposto').AsCurrency;
-    F_Acao := raEdicao;
   finally
     Query.Free;
   end;
@@ -197,21 +200,21 @@ class function TTanque.Listar: TArray<TTanque>;
 var
   Query: TIBQuery;
 begin
-  inherited;
   Query := DM.NewQuery;
   try
     Query.SQL.Add('Select * From ' + NomeTabela);
     Query.Open;
+    Query.FetchAll;
     if not Query.IsEmpty then
     begin
       SetLength(Result, Query.RecordCount);
       while not Query.Eof do
       begin
-        Result[Query.RecNo] := TTanque.Create;
-        Result[Query.RecNo].F_Acao := raEdicao;
-        Result[Query.RecNo].FCodigo := Query.FieldByName('Codigo').AsString;
-        Result[Query.RecNo].FDescricao := Query.FieldByName('Descricao').AsString;
-        Result[Query.RecNo].FImposto := Query.FieldByName('Imposto').AsCurrency;
+        Result[Query.RecNo-1] := TTanque.Create;
+        Result[Query.RecNo-1].F_Acao := raEdicao;
+        Result[Query.RecNo-1].FCodigo := Query.FieldByName('Codigo').AsInteger;
+        Result[Query.RecNo-1].FDescricao := Query.FieldByName('Descricao').AsString;
+        Result[Query.RecNo-1].FImposto := Query.FieldByName('Imposto').AsCurrency;
         Query.Next;
       end;
     end;
@@ -247,17 +250,16 @@ procedure TBomba.Abrir(Codigo: Integer);
 var
   Query: TIBQuery;
 begin
-  inherited;
   Query := DM.NewQuery;
   try
     Query.SQL.Add('Select * From ' + NomeTabela);
     Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
     Query.Open;
     if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    F_Acao := raEdicao;
     FCodigo := Codigo;
     FDescricao := Query.FieldByName('Descricao').AsString;
     FTanque := Query.FieldByName('Tanque').AsInteger;
-    F_Acao := raEdicao;
   finally
     Query.Free;
   end;
@@ -314,8 +316,30 @@ begin
 end;
 
 class function TBomba.Listar: TArray<TBomba>;
+var
+  Query: TIBQuery;
 begin
-  //
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.Open;
+    Query.FetchAll;
+    if not Query.IsEmpty then
+    begin
+      SetLength(Result, Query.RecordCount);
+      while not Query.Eof do
+      begin
+        Result[Query.RecNo-1] := TBomba.Create;
+        Result[Query.RecNo-1].F_Acao := raEdicao;
+        Result[Query.RecNo-1].FCodigo := Query.FieldByName('Codigo').AsInteger;
+        Result[Query.RecNo-1].FDescricao := Query.FieldByName('Descricao').AsString;
+        Result[Query.RecNo-1].FTanque := Query.FieldByName('Tanque').AsInteger;
+        Query.Next;
+      end;
+    end;
+  finally
+    Query.Free;
+  end;
 end;
 
 class function TBomba.ObterTanque(Bomba: Integer): Integer;
@@ -345,13 +369,13 @@ procedure TAbastecimento.Abrir(Codigo: Integer);
 var
   Query: TIBQuery;
 begin
-  inherited;
   Query := DM.NewQuery;
   try
     Query.SQL.Add('Select * From ' + NomeTabela);
     Query.SQL.Add('Where Codigo = ' + IntToStr(Codigo));
     Query.Open;
     if Query.IsEmpty then raise Exception.Create('Registro não encontrado !');
+    F_Acao := raEdicao;
     FCodigo := Codigo;
     FData := Query.FieldByName('Data').AsDateTime;
     FHora := Query.FieldByName('Hora').AsDateTime;
@@ -360,12 +384,10 @@ begin
     FValor := Query.FieldByName('Valor').AsCurrency;
     FImposto := Query.FieldByName('Imposto').AsFloat;
     FValorImposto := Query.FieldByName('ValorImposto').AsCurrency;
-    F_Acao := raEdicao;
   finally
     Query.Free;
   end;
 end;
-
 
 procedure TAbastecimento.CalcularTotais;
 var
@@ -437,8 +459,35 @@ begin
 end;
 
 class function TAbastecimento.Listar: TArray<TAbastecimento>;
+var
+  Query: TIBQuery;
 begin
-  //
+  Query := DM.NewQuery;
+  try
+    Query.SQL.Add('Select * From ' + NomeTabela);
+    Query.Open;
+    Query.FetchAll;
+    if not Query.IsEmpty then
+    begin
+      SetLength(Result, Query.RecordCount);
+      while not Query.Eof do
+      begin
+        Result[Query.RecNo-1] := TAbastecimento.Create;
+        Result[Query.RecNo-1].F_Acao := raEdicao;
+        Result[Query.RecNo-1].FCodigo := Query.FieldByName('Codigo').AsInteger;
+        Result[Query.RecNo-1].FData := Query.FieldByName('Data').AsDateTime;
+        Result[Query.RecNo-1].FHora := Query.FieldByName('Hora').AsDateTime;
+        Result[Query.RecNo-1].FBomba := Query.FieldByName('Bomba').AsInteger;
+        Result[Query.RecNo-1].FLitros := Query.FieldByName('Bomba').AsFloat;
+        Result[Query.RecNo-1].FValor := Query.FieldByName('Valor').AsCurrency;
+        Result[Query.RecNo-1].FImposto := Query.FieldByName('Imposto').AsFloat;
+        Result[Query.RecNo-1].FValorImposto := Query.FieldByName('ValorImposto').AsCurrency;
+        Query.Next;
+      end;
+    end;
+  finally
+    Query.Free;
+  end;
 end;
 
 

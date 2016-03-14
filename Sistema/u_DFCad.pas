@@ -233,6 +233,7 @@ begin
   inherited;
   if TCadastro.State = DSInsert then
   begin
+    //REMOVER
     {if TCadastro.FieldByName('Codigo').AsInteger = 0 then
     begin
       with TIBQuery.Create(Self) do

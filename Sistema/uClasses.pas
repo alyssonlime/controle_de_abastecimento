@@ -5,10 +5,6 @@ interface
 uses
   SysUtils, Variants, Classes, IBQuery;
 
-const
-  RegMsgNaoEncontrado = 'Registro não encontrado';
-  RegMsgOperacaoFalhou = 'Operação falhou';
-
 type
   TRegistroAcao = (raInclusao, raEdicao, raDeletado);
 
@@ -195,6 +191,7 @@ begin
     Query.SQL.Add('Where Codigo = ' + IntToStr(FCodigo));
     Query.ExecSQL;
     if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+    F_Acao := raDeletado;
   finally
     Query.Free;
   end;
@@ -314,6 +311,7 @@ begin
     Query.SQL.Add('Where Codigo = ' + IntToStr(FCodigo));
     Query.ExecSQL;
     if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+    F_Acao := raDeletado;
   finally
     Query.Free;
   end;
@@ -457,6 +455,7 @@ begin
     Query.SQL.Add('Where Codigo = ' + IntToStr(FCodigo));
     Query.ExecSQL;
     if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou!');
+    F_Acao := raDeletado;
   finally
     Query.Free;
   end;
