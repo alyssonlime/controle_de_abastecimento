@@ -186,6 +186,7 @@ begin
     Query.Params.ParamValues['Descricao'] := FDescricao;
     Query.Params.ParamValues['Imposto'] := FImposto;
     Query.ExecSQL;
+    DM.Transacao.Commit;
     if Query.RowsAffected = 0 then raise Exception.Create('Operação falhou');
   finally
     Query.Free;

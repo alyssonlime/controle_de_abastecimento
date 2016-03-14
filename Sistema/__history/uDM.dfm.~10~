@@ -4,18 +4,19 @@ object DM: TDM
   Height = 356
   Width = 569
   object Conexao: TIBDatabase
+    Connected = True
     DatabaseName = 'localhost:M:\TESTE\Projeto\DB\BANCO.FDB'
     Params.Strings = (
       'user_name=SYSDBA'
       'password=masterkey')
     LoginPrompt = False
-    DefaultTransaction = Transacao
-    Left = 384
-    Top = 56
+    Left = 136
+    Top = 104
   end
   object Transacao: TIBTransaction
-    IdleTimer = 5000
-    Left = 384
-    Top = 112
+    Active = True
+    DefaultDatabase = Conexao
+    Left = 280
+    Top = 136
   end
 end

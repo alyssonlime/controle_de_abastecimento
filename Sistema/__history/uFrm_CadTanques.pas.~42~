@@ -20,6 +20,7 @@ type
       Shift: TShiftState);
     procedure TCadastroBeforeDelete(DataSet: TDataSet);
     procedure TCadastroBeforePost(DataSet: TDataSet);
+    procedure TConsultaAfterOpen(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
     procedure TCadastroAfterOpen(DataSet: TDataSet);
   private
@@ -46,6 +47,8 @@ end;
 
 procedure TFrm_CadTanques.FormCreate(Sender: TObject);
 begin
+  TConsulta.FieldDefs.Add('Descricao', ftString, 50);
+  TConsulta.FieldDefs.Add('Imposto', ftCurrency);
   TCadastro.FieldDefs.Add('Descricao', ftString, 50);
   TCadastro.FieldDefs.Add('Imposto', ftCurrency);
   inherited;
@@ -53,19 +56,23 @@ end;
 
 procedure TFrm_CadTanques.TCadastroAfterOpen(DataSet: TDataSet);
 var
-  Item: TTanque; Lista : TArray<TTanque>;
+  Item: TTanque;
 begin
   inherited;
-  Lista := TTanque.Listar;
-  for Item in Lista do
-  begin
+  //if not TConsulta.Active then exit;
+  //if TConsulta.FieldByName('Codigo').AsInteger = 0 then exit;
+  if not Visible then exit;
+  Item := TTanque.Create;
+  try
+    Item.Abrir(TConsulta.FieldByName('Codigo').AsInteger);
     TCadastro.Append;
     TCadastro.FieldValues['Codigo'] := Item.Codigo;
     TCadastro.FieldValues['Descricao'] := Item.Descricao;
     TCadastro.FieldValues['Imposto'] := Item.Imposto;
     TCadastro.Post;
+  finally
+    FreeAndNil(Item);
   end;
-  TCadastroPreparado := True;
 end;
 
 procedure TFrm_CadTanques.TCadastroBeforeDelete(DataSet: TDataSet);
@@ -87,7 +94,6 @@ var
   Item : TTanque;
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   Item := TTanque.Create;
   try
     if TCadastro.State = dsEdit then
@@ -99,6 +105,22 @@ begin
       TCadastro.FieldByName('Codigo').AsInteger := Item.Codigo;
   finally
     FreeAndNil(Item);
+  end;
+end;
+
+procedure TFrm_CadTanques.TConsultaAfterOpen(DataSet: TDataSet);
+var
+  Item: TTanque; Lista : TArray<TTanque>;
+begin
+  inherited;
+  Lista := TTanque.Listar;
+  for Item in Lista do
+  begin
+    TConsulta.Append;
+    TConsulta.FieldValues['Codigo'] := Item.Codigo;
+    TConsulta.FieldValues['Descricao'] := Item.Descricao;
+    TConsulta.FieldValues['Imposto'] := Item.Imposto;
+    TConsulta.Post;
   end;
 end;
 

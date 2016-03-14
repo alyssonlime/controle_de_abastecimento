@@ -23,6 +23,8 @@ type
     Label1: TLabel;
     grid_Listagem: TDBGrid;
     TCadastro: TClientDataSet;
+    TConsulta: TClientDataSet;
+    DSConsulta: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure TCadastroBeforePost(DataSet: TDataSet);
     procedure Btn_NovoClick(Sender: TObject);
@@ -42,12 +44,11 @@ type
     procedure grid_ListagemDblClick(Sender: TObject);
     procedure TCadastroDeleteError(DataSet: TDataSet; E: EDatabaseError;
       var Action: TDataAction);
-    procedure TCadastroAfterClose(DataSet: TDataSet);
+    procedure TConsultaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
-    TCadastroPreparado: Boolean;
     procedure HabilitarEdicao;
     procedure DesabilitarEdicao;
     procedure SetFocusDefault(Controle: TWinControl = nil);
@@ -168,13 +169,13 @@ end;
 procedure T_DFCad.FormCreate(Sender: TObject);
 begin
   inherited;
-  TCadastroPreparado := False;
+  TConsulta.FieldDefs.Add('Codigo', ftInteger);
+  TConsulta.CreateDataSet;
+  TConsulta.LogChanges := False;
+  TConsulta.Open;
   TCadastro.FieldDefs.Add('Codigo', ftInteger);
-  TCadastro.IndexDefs.Add('PK_Codigo', 'Codigo', [ixPrimary, ixUnique]);
   TCadastro.CreateDataSet;
   TCadastro.LogChanges := False;
-  TCadastro.Open;
-
   Tab_Form.TabIndex := 0;
 end;
 
@@ -193,34 +194,24 @@ end;
 procedure T_DFCad.TCadastroAfterCancel(DataSet: TDataSet);
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   DesabilitarEdicao;
-end;
-
-procedure T_DFCad.TCadastroAfterClose(DataSet: TDataSet);
-begin
-  inherited;
-  TCadastroPreparado := False;
 end;
 
 procedure T_DFCad.TCadastroAfterDelete(DataSet: TDataSet);
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   DesabilitarEdicao;
 end;
 
 procedure T_DFCad.TCadastroAfterPost(DataSet: TDataSet);
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   DesabilitarEdicao;
 end;
 
 procedure T_DFCad.TCadastroBeforeDelete(DataSet: TDataSet);
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   if TCadastro.IsEmpty then
   begin
     DM.MsgBox('Nenhum registro para exclusão !', MB_ICONEXCLAMATION);
@@ -232,24 +223,39 @@ end;
 procedure T_DFCad.TCadastroBeforeEdit(DataSet: TDataSet);
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   HabilitarEdicao;
 end;
 
 procedure T_DFCad.TCadastroBeforeInsert(DataSet: TDataSet);
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   HabilitarEdicao;
 end;
 
 procedure T_DFCad.TCadastroBeforePost(DataSet: TDataSet);
 var
+  x: Integer;
   Field: TField;
 begin
   inherited;
-  if not TCadastroPreparado then exit;
-  {for Field in TCadastro.Fields do
+  if TCadastro.State = DSInsert then
+  begin
+    //REMOVER
+    {if TCadastro.FieldByName('Codigo').AsInteger = 0 then
+    begin
+      with TIBQuery.Create(Self) do
+      try
+        SQL.Text := 'Select MAX(Codigo) From ' + TCadastro.TableName;
+        Open;
+        TCadastro['Codigo'] := Fields[0].AsInteger + 1;
+      finally
+        Close;
+        Free;
+      end;
+    end;  }
+  end;
+  //for x := low(TCadastro.Fields) to high(TCadastro.Fields) do
+  for Field in TCadastro.Fields do
   begin
     if Field.Required and (Field.IsNull or (Field.AsString = '') or (Field.AsString = '0')) then
     begin
@@ -260,7 +266,7 @@ begin
       Field.FocusControl;
       Abort;
     end;
-  end;     }
+  end;
 end;
 
 procedure T_DFCad.TCadastroDeleteError(DataSet: TDataSet; E: EDatabaseError;
@@ -269,6 +275,13 @@ begin
   inherited;
   if Copy(E.Message, 1, 12)  = 'violation of' then
     E.Message := 'O registro selecionado não poderá ser excluído!';
+end;
+
+procedure T_DFCad.TConsultaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  TCadastro.Close;
+  TCadastro.Open;
 end;
 
 end.

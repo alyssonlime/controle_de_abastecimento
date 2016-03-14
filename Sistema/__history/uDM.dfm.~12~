@@ -10,12 +10,11 @@ object DM: TDM
       'password=masterkey')
     LoginPrompt = False
     DefaultTransaction = Transacao
-    Left = 384
-    Top = 56
+    Left = 136
+    Top = 104
   end
   object Transacao: TIBTransaction
-    IdleTimer = 5000
-    Left = 384
-    Top = 112
+    Left = 280
+    Top = 136
   end
 end

@@ -14,7 +14,6 @@ type
     F_Acao: TRegistroAcao;
     function GerarCodigo: Integer;
     class function NomeTabela: String; virtual; abstract;
-    procedure Validar; virtual; abstract;
   public
     {PROPRIEDADES}
     property Codigo: Integer read FCodigo;
@@ -32,7 +31,6 @@ type
     FDescricao: String;
     FImposto: Currency;
     class function NomeTabela: String; override;
-    procedure Validar; override;
   public
     {PROPRIEDADES}
     property Descricao: String read FDescricao write FDescricao;
@@ -50,7 +48,6 @@ type
     FDescricao: String;
     FTanque: Integer;
     class function NomeTabela: String; override;
-    procedure Validar; override;
   public
     {PROPRIEDADES}
     property Descricao: String read FDescricao write FDescricao;
@@ -73,7 +70,6 @@ type
     FImposto: Double;
     FValorImposto: Currency;
     class function NomeTabela: String; override;
-    procedure Validar; override;
   public
     {PROPRIEDADES}
     property Data: TDate read FData write FData;
@@ -148,19 +144,11 @@ begin
   end;
 end;
 
-procedure TTanque.Validar;
-begin
-  FDescricao := Trim(FDescricao);
-  if FDescricao = '' then raise Exception.Create('Campo Descrição requerido!!');
-  if FImposto = 0 then raise Exception.Create('Campo Imposto requerido!!');
-end;
-
 procedure TTanque.Salvar;
 var
   Query: TIBQuery;
 begin
   inherited;
-  Validar;
   Query := DM.NewQuery;
   try
     case F_Acao of
@@ -278,18 +266,10 @@ begin
   end;
 end;
 
-procedure TBomba.Validar;
-begin
-  FDescricao := Trim(FDescricao);
-  if FDescricao = '' then raise Exception.Create('Campo Descrição requerido!!');
-  if FTanque = 0 then raise Exception.Create('Campo Tanque requerido!!');
-end;
-
 procedure TBomba.Salvar;
 var
   Query: TIBQuery;
 begin
-  Validar;
   Query := DM.NewQuery;
   try
     case F_Acao of
@@ -420,20 +400,10 @@ begin
   FValorImposto := FValor * FImposto / 100;
 end;
 
-procedure TAbastecimento.Validar;
-begin
-  if FData = 0 then raise Exception.Create('Campo Data requerido!!');
-  if FHora = 0 then raise Exception.Create('Campo Hora requerido!!');
-  if FBomba = 0 then raise Exception.Create('Campo Bomba requerido!!');
-  if FLitros = 0 then raise Exception.Create('Campo Litros requerido!!');
-  if FValor = 0 then raise Exception.Create('Campo Valor requerido!!');
-end;
-
 procedure TAbastecimento.Salvar;
 var
   Query: TIBQuery;
 begin
-  Validar;
   CalcularTotais;
   Query := DM.NewQuery;
   try

@@ -106,13 +106,6 @@ inherited _DFCad: T_DFCad
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDblClick = grid_ListagemDblClick
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'Codigo'
-            Title.Caption = 'C'#243'digo'
-            Visible = True
-          end>
       end
     end
     object Tab_Detalhes: TTabSheet

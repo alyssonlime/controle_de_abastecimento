@@ -42,7 +42,6 @@ type
     procedure grid_ListagemDblClick(Sender: TObject);
     procedure TCadastroDeleteError(DataSet: TDataSet; E: EDatabaseError;
       var Action: TDataAction);
-    procedure TCadastroAfterClose(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -197,12 +196,6 @@ begin
   DesabilitarEdicao;
 end;
 
-procedure T_DFCad.TCadastroAfterClose(DataSet: TDataSet);
-begin
-  inherited;
-  TCadastroPreparado := False;
-end;
-
 procedure T_DFCad.TCadastroAfterDelete(DataSet: TDataSet);
 begin
   inherited;
@@ -249,7 +242,7 @@ var
 begin
   inherited;
   if not TCadastroPreparado then exit;
-  {for Field in TCadastro.Fields do
+  for Field in TCadastro.Fields do
   begin
     if Field.Required and (Field.IsNull or (Field.AsString = '') or (Field.AsString = '0')) then
     begin
@@ -260,7 +253,7 @@ begin
       Field.FocusControl;
       Abort;
     end;
-  end;     }
+  end;
 end;
 
 procedure T_DFCad.TCadastroDeleteError(DataSet: TDataSet; E: EDatabaseError;

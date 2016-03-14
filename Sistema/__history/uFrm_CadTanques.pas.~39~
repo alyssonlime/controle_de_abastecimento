@@ -20,8 +20,8 @@ type
       Shift: TShiftState);
     procedure TCadastroBeforeDelete(DataSet: TDataSet);
     procedure TCadastroBeforePost(DataSet: TDataSet);
-    procedure FormCreate(Sender: TObject);
-    procedure TCadastroAfterOpen(DataSet: TDataSet);
+    procedure TCadastroAfterGetRecords(Sender: TObject;
+      var OwnerData: OleVariant);
   private
     { Private declarations }
   public
@@ -44,14 +44,8 @@ begin
   txt_Descricao.SetFocus;
 end;
 
-procedure TFrm_CadTanques.FormCreate(Sender: TObject);
-begin
-  TCadastro.FieldDefs.Add('Descricao', ftString, 50);
-  TCadastro.FieldDefs.Add('Imposto', ftCurrency);
-  inherited;
-end;
-
-procedure TFrm_CadTanques.TCadastroAfterOpen(DataSet: TDataSet);
+procedure TFrm_CadTanques.TCadastroAfterGetRecords(Sender: TObject;
+  var OwnerData: OleVariant);
 var
   Item: TTanque; Lista : TArray<TTanque>;
 begin
@@ -65,7 +59,6 @@ begin
     TCadastro.FieldValues['Imposto'] := Item.Imposto;
     TCadastro.Post;
   end;
-  TCadastroPreparado := True;
 end;
 
 procedure TFrm_CadTanques.TCadastroBeforeDelete(DataSet: TDataSet);
@@ -87,7 +80,6 @@ var
   Item : TTanque;
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   Item := TTanque.Create;
   try
     if TCadastro.State = dsEdit then

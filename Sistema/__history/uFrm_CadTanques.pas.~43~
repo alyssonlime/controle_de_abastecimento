@@ -46,6 +46,8 @@ end;
 
 procedure TFrm_CadTanques.FormCreate(Sender: TObject);
 begin
+  TConsulta.FieldDefs.Add('Descricao', ftString, 50);
+  TConsulta.FieldDefs.Add('Imposto', ftCurrency);
   TCadastro.FieldDefs.Add('Descricao', ftString, 50);
   TCadastro.FieldDefs.Add('Imposto', ftCurrency);
   inherited;
@@ -87,7 +89,6 @@ var
   Item : TTanque;
 begin
   inherited;
-  if not TCadastroPreparado then exit;
   Item := TTanque.Create;
   try
     if TCadastro.State = dsEdit then

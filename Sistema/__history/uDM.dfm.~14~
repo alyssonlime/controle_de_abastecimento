@@ -14,7 +14,6 @@ object DM: TDM
     Top = 56
   end
   object Transacao: TIBTransaction
-    IdleTimer = 5000
     Left = 384
     Top = 112
   end

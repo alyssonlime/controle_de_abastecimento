@@ -36,29 +36,10 @@ inherited Frm_CadTanques: TFrm_CadTanques
         Top = 0
         Width = 612
         Height = 274
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'Codigo'
-            Title.Caption = 'C'#243'digo'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'Descricao'
-            Title.Caption = 'Descri'#231#227'o'
-            Width = 443
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'Imposto'
-            Title.Caption = 'Imposto %'
-            Visible = True
-          end>
       end
     end
     inherited Tab_Detalhes: TTabSheet
+      ExplicitLeft = 4
       ExplicitWidth = 618
       object Label2: TLabel [1]
         Left = 3
@@ -103,7 +84,9 @@ inherited Frm_CadTanques: TFrm_CadTanques
     Left = 384
   end
   inherited TCadastro: TClientDataSet
-    AfterOpen = TCadastroAfterOpen
     Left = 320
+  end
+  inherited TConsulta: TClientDataSet
+    AfterOpen = TConsultaAfterOpen
   end
 end

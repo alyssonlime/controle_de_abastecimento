@@ -97,7 +97,7 @@ inherited _DFCad: T_DFCad
         Width = 550
         Height = 271
         Anchors = [akLeft, akTop, akRight, akBottom]
-        DataSource = DSCadastro
+        DataSource = DSConsulta
         Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -106,13 +106,6 @@ inherited _DFCad: T_DFCad
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDblClick = grid_ListagemDblClick
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'Codigo'
-            Title.Caption = 'C'#243'digo'
-            Visible = True
-          end>
       end
     end
     object Tab_Detalhes: TTabSheet
@@ -149,7 +142,6 @@ inherited _DFCad: T_DFCad
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    AfterClose = TCadastroAfterClose
     BeforeInsert = TCadastroBeforeInsert
     BeforeEdit = TCadastroBeforeEdit
     BeforePost = TCadastroBeforePost
@@ -159,5 +151,18 @@ inherited _DFCad: T_DFCad
     AfterDelete = TCadastroAfterDelete
     OnDeleteError = TCadastroDeleteError
     Left = 336
+  end
+  object TConsulta: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    AfterScroll = TConsultaAfterScroll
+    Left = 168
+  end
+  object DSConsulta: TDataSource
+    DataSet = TConsulta
+    Left = 232
   end
 end
