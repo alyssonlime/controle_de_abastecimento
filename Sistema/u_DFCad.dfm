@@ -83,7 +83,7 @@ inherited _DFCad: T_DFCad
     Top = 16
     Width = 570
     Height = 305
-    ActivePage = Tab_Listagem
+    ActivePage = Tab_Detalhes
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 5
     object Tab_Listagem: TTabSheet

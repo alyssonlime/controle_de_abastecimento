@@ -32,6 +32,7 @@ inherited Frm_CadTanques: TFrm_CadTanques
     inherited Tab_Listagem: TTabSheet
       ExplicitWidth = 618
       inherited grid_Listagem: TDBGrid
+        Left = 10
         Top = 0
         Width = 612
         Height = 274
@@ -40,21 +41,19 @@ inherited Frm_CadTanques: TFrm_CadTanques
             Expanded = False
             FieldName = 'Codigo'
             Title.Caption = 'C'#243'digo'
-            Width = 57
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'DESCRICAO'
+            FieldName = 'Descricao'
             Title.Caption = 'Descri'#231#227'o'
-            Width = 421
+            Width = 443
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'IMPOSTO'
-            Title.Caption = 'Imposto (%)'
-            Width = 93
+            FieldName = 'Imposto'
+            Title.Caption = 'Imposto %'
             Visible = True
           end>
       end
@@ -101,33 +100,10 @@ inherited Frm_CadTanques: TFrm_CadTanques
     end
   end
   inherited DSCadastro: TDataSource
-    Left = 224
+    Left = 384
   end
   inherited TCadastro: TClientDataSet
-    FieldDefs = <
-      item
-        Name = 'CODIGO'
-        Attributes = [faRequired]
-        DataType = ftInteger
-      end
-      item
-        Name = 'DESCRICAO'
-        DataType = ftWideString
-        Size = 50
-      end
-      item
-        Name = 'IMPOSTO'
-        Attributes = [faRequired]
-        DataType = ftBCD
-        Precision = 9
-        Size = 2
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TANQUES'
-        Fields = 'CODIGO'
-        Options = [ixUnique]
-      end>
-    Left = 160
+    AfterOpen = TCadastroAfterOpen
+    Left = 320
   end
 end

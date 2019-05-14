@@ -18,9 +18,9 @@ type
   public
     {PROPRIEDADES}
     property Codigo: Integer read FCodigo;
+    {AÇÕES}
     constructor Create;
     destructor Destroy; override;
-    {AÇÕES}
     procedure Abrir(Codigo: Integer); virtual; abstract;
     procedure Salvar; virtual; abstract;
     procedure Deletar; virtual; abstract;
